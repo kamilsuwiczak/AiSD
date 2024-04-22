@@ -7,7 +7,15 @@ y=[]
 if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)>3:
     for i in range (0, int(sys.argv[3])):
         y.append(int(sys.argv[i+4]))
-
+# Obsługa BST podawanego do programu jako node> i insert>
+elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)<=3:
+    x=input("nodes>")
+    a=input("insert>")
+    for i in range(0, len(a)):
+        if a[i]==" ":
+            continue
+        y.append(int(a[i]))
+# print(len(sys.argv))
 z=trees.BST(y)
 print(z.print())
 
