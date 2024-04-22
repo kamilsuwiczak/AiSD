@@ -7,8 +7,10 @@ class Node:
         self.right = None
 
 class BST:
-    def __init__(self):
+    def __init__(self,data):
         self.root = None
+        for i in data:
+            self.insert(i)
     
     def insert(self, key):
         new = Node(key)     
@@ -115,14 +117,25 @@ class BST:
             node.key = None
 
 class AVLNode(Node):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,key):
+        super().__init__(key)
         self.height = 1
 
 class AVL(BST):
     def __init__(self, data):
-        super().__init__()
+        super().__init__(data)
+        self.root = self.build_avl_tree(sorted(data))
         
+    def build_avl_tree(self, data):
+            if not data:
+                return None
+            mid = len(data) // 2
+            root = AVLNode(data[mid])
+            root.left = self.build_avl_tree(data[:mid])
+            root.right = self.build_avl_tree(data[mid+1:])
+            self.updateHeight(root)
+            return root
+   
     def getBalance(self, node):
         if not node:
             return 0
@@ -156,22 +169,13 @@ class AVL(BST):
         return pivot
 
     
-        
-
-
+    
 def main():
-    xd = BST()
+    xd = BST([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+    dx = AVL([8,2,5,14,10,12,13,6,9,1,4])
 
-    xd.insert(2)
-    xd.insert(5)
-    xd.insert(10)
-    xd.insert(12)
-    xd.insert(13)
-    xd.insert(6)
-    xd.insert(9)
     print(xd.print())
-    xd.del_all()
-    print(xd.print())
+    print(dx.print())
 
 if __name__ == '__main__':
     main()
