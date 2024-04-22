@@ -43,10 +43,21 @@ while(x):
             print("post-order: ", tab[2])
 
         case "remove":
-            action = input("remove> ")
+            tab2=[]
+            tmp=""
+            nodes_to_remove = input("remove> ")
+            for i in range (0, len(nodes_to_remove)):
+                if nodes_to_remove[i] != " ":
+                    tmp = tmp+nodes_to_remove[i]
+                if nodes_to_remove[i] == " " or i == len(nodes_to_remove)-1:
+                    tab2.append(tmp)
+                    tmp = ""
+            for i in tab2:
+                z.delete(int(i))
 
         case "delete":
             z.del_all()
+            print("Tree has been deleted")
 
         case "export":
             pass
