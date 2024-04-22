@@ -25,10 +25,6 @@ z=trees.BST(y)
 while(x):
     action = input("action> ")
     match action:
-        case "exit":
-            x= False
-        case  "print":
-            print(z.print())
         case "help":
             print("help         Show this message")
             print("print        Print the tree using in-order, pre-order, post-order")
@@ -37,6 +33,15 @@ while(x):
             print("export       Export the tree to tickzpicture")
             print("rebalance    Rebalance the tree")
             print("exit         Exits the program (the same as ctrl + D)")
-
+        case  "print":
+            print(z.print())
+        case "remove":
+            action = input("remove> ")
+        case "export":
+            pass
+        case "rebalance":
+            pass
+        case "exit":
+            x= False
         
     
