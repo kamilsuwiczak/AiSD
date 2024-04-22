@@ -9,9 +9,10 @@ action =""
 if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)>3:
     for i in range (0, int(sys.argv[3])):
         y.append(int(sys.argv[i+4]))
+
 # Obsługa BST podawanego do programu jako node> i insert>
 elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)<=3:
-    x=input("nodes> ")
+    nodes=input("nodes> ")
     a=input("insert >")
     for i in range(0, len(a)):
         if a[i]==" ":
@@ -32,15 +33,29 @@ while(x):
             print("delete       Delete the whole tree")
             print("export       Export the tree to tickzpicture")
             print("rebalance    Rebalance the tree")
+            print("findMinMax   Finding minimum and maximum in tree")
             print("exit         Exits the program (the same as ctrl + D)")
+
         case  "print":
-            print(z.print())
+            tab = z.print()
+            print("pre-order: ", tab[0])
+            print("In-order: ", tab[1])
+            print("post-order: ", tab[2])
+
         case "remove":
             action = input("remove> ")
+
+        case "delete":
+            z.del_all()
+
         case "export":
             pass
+
         case "rebalance":
             pass
+        case "findMinMax":
+            print("Min: ", z.find_min())
+            print("Max", z.find_max())
         case "exit":
             x= False
         
