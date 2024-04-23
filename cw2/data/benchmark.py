@@ -46,17 +46,28 @@ def measure_time_of_creating_BST():
         tab.clear()
     f1.close()
 
-def test_print():
-    f= open("benchmark_data/random/4_random_elements.txt")
-    tab=[]
-    x = int(f.readline())
-    for j in range(0, x):
-        tab.append(int(f.readline()))
+def measure_time_of_finding_min_and_max():
+    f1 = open("benchmark_results/results.txt", "a")
+    f1.write("Action, number_of_elements, time\n")
+    files = os.listdir("benchmark_data/random")
+    for i in files:
+        tab=[]
+        f2=open(f"benchmark_data/random/{i}", "r")
+        x = int(f2.readline())
+        for j in range(0, x):
+            tab.append(int(f2.readline()))
+        f2.close()
 
-    f.close()
-    start_time = time.time()
-    tree = trees.AVL(tab)
-    print(time.time()-start_time)
+        for k in range(0,4):
+            tree = trees.BST(tab)
+            start_time = time.time()
+            min_element = tree.find_min()
+            max_element = tree.find_max()
+            finish_time=time.time()-start_time
+            finish_time = str(finish_time).replace(".", ",")
+            f1.write(f"creating BST, {i}, {finish_time}\n")
+        tab.clear()
+    f1.close()
 
 
 
@@ -71,13 +82,8 @@ def main():
     # test_print()
     measure_time_of_creating_AVL()
     measure_time_of_creating_BST()
-    # files = os.listdir("benchmark_data/random")
-    # dx = trees.AVL([8,2,5,14,10,12,13,6,9,1,4])
-    # start_time = time.time()
-    # print(dx.print())
-    # print(time.time()-start_time)
-    # print(files)
-
+    measure_time_of_finding_min_and_max()
+    
 
 
 if __name__ == '__main__':
