@@ -90,6 +90,25 @@ def measure_time_of_finding_min_and_max_AVL():
         tab.clear()
     f1.close()
 
+def measure_time_of_printing_degenerated_BST_inorder():
+    f1 = open("benchmark_results/results.txt", "a")
+    files = os.listdir("benchmark_data/degenerated_trees")
+    for i in files:
+        tab=[]
+        f2=open(f"benchmark_data/degenerated_trees/{i}", "r")
+        x = int(f2.readline())
+        for j in range(0, x):
+            tab.append(int(f2.readline()))
+        f2.close()
+        for k in range(0,4):
+            tree = trees.AVL(tab)
+            start_time = time.time()
+            print(tree.print_inorder())
+            finish_time=time.time()-start_time
+            finish_time = str(finish_time).replace(".", ",")
+            f1.write(f"printing degenerated BST in-order\t{i}\t{x}\t{finish_time}\n")
+        tab.clear()
+    f1.close()
 
 
 
@@ -107,10 +126,11 @@ def main():
         file.close()
     # print(printing_from_files())
     # test_print()
-    measure_time_of_creating_AVL()
-    measure_time_of_creating_BST()
-    measure_time_of_finding_min_and_max_BST()
-    measure_time_of_finding_min_and_max_AVL()
+    # measure_time_of_creating_AVL()
+    # measure_time_of_creating_BST()
+    # measure_time_of_finding_min_and_max_BST()
+    # measure_time_of_finding_min_and_max_AVL()
+    measure_time_of_printing_degenerated_BST_inorder()
     
 
 
