@@ -126,10 +126,10 @@ def main():
         file.close()
     # print(printing_from_files())
     # test_print()
-    # measure_time_of_creating_AVL()
-    # measure_time_of_creating_BST()
-    # measure_time_of_finding_min_and_max_BST()
-    # measure_time_of_finding_min_and_max_AVL()
+    measure_time_of_creating_AVL()
+    measure_time_of_creating_BST()
+    measure_time_of_finding_min_and_max_BST()
+    measure_time_of_finding_min_and_max_AVL()
     measure_time_of_printing_degenerated_BST_inorder()
     
 
