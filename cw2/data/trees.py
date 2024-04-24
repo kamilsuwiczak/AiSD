@@ -35,6 +35,18 @@ class BST:
             
             else:   #w przypadku duplikatow nic nie robimy
                 return
+    def generate_tree_in_tikz(self):
+        return "\\Tree " + self._generate_tikz(self.root)
+
+    def _generate_tikz(self, node):
+        if node is None:
+            return ""
+        left_str = self._generate_tikz(node.left)
+        right_str = self._generate_tikz(node.right)
+        if left_str or right_str:
+            return f"[.{node.key} {left_str} {right_str} ]"
+        else:
+            return f"[.{node.key} ]"
         
     def print(self):
         preorder = []
@@ -178,7 +190,11 @@ class AVL(BST):
 def main():
     xd = BST([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
     xx=BST([10,9,8,7,6,5,4,3,2,1])
-    dx = AVL([8,2,5,14,10,12,13,6,9,1,4])
+    dx = BST([8,2,5,14,10,12,13,6,9,1,4])
+    f= open("bst_tikz.tex", "w")
+    f.write(dx.generate_tikz())
+    f.close()
+    
 
     print(xd.print())
     # print(dx.print())
