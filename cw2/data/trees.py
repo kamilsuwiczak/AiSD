@@ -45,6 +45,11 @@ class BST:
         self.preorder_traversal(self.root,preorder)
         self.postorder_traversal(self.root,postorder)
         return preorder,inorder,postorder
+    
+    def print_inorder(self):
+        inorder=[]
+        self.inorder_traversal(self.root, inorder)
+        return inorder
 
     def inorder_traversal(self, node, result):
         if node:
@@ -172,10 +177,13 @@ class AVL(BST):
     
 def main():
     xd = BST([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+    xx=BST([10,9,8,7,6,5,4,3,2,1])
     dx = AVL([8,2,5,14,10,12,13,6,9,1,4])
 
     print(xd.print())
-    print(dx.print())
+    # print(dx.print())
+    # print(xx.print())
+    print(xd.print_inorder())
 
 if __name__ == '__main__':
     main()
