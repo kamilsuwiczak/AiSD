@@ -147,7 +147,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = tree.print()
+                tab = tree.print_tree()
                 print("pre-order: ", *tab[0])
                 print("In-order: ", *tab[1])
                 print("post-order: ", *tab[2])
