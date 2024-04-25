@@ -5,13 +5,13 @@ tree_data=[]
 # program odpala się poprzez python3 main.py --tree BST <<< "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 actions"
 if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
     # print(len(sys.argv))
-    x=input()
-    print(x)
-    x= x.split()
-    for i in range (0, int(x.pop(0))):
-        tree_data.append(int(x.pop(0)))
-    z=trees.BST(tree_data)
-    for i in x:
+    input_string=input()
+    print(input_string)
+    input_string= input_string.split()
+    for i in range (0, int(input_string.pop(0))):
+        tree_data.append(int(input_string.pop(0)))
+    tree=trees.BST(tree_data)
+    for i in input_string:
         action = i
         match action:
             case "help":
@@ -25,7 +25,7 @@ if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print_tree()
+                tab = tree.print_tree()
                 print("pre-order: ", *tab[0])
                 print("In-order: ", *tab[1])
                 print("post-order: ", *tab[2])
@@ -41,36 +41,36 @@ if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
                         tab.append(tmp)
                         tmp = ""
                 for i in tab:
-                    z.delete(int(i))
+                    tree.delete(int(i))
 
             case "delete":
-                z.del_all()
+                tree.del_all()
                 print("Tree has been deleted")
 
             case "export":
                 string="\documentclass{standalone}\n\\usepackage{tikz}\n\\usepackage{tikz-qtree}\n\\begin{document}\n"
                 f=open("bst_tree.tex", "w", encoding="utf-8")
                 f.write(string)
-                f.write(z.generate_tree_in_tikz())
+                f.write(tree.generate_tree_in_tikz())
                 f.write("\n\end{document}")
                 f.close()
 
             case "rebalance":
                 pass
             case "findMinMax":
-                print("Min: ", z.find_min())
-                print("Max", z.find_max())
+                print("Min: ", tree.find_min())
+                print("Max", tree.find_max())
             case "exit":
                 pass
 # program odpala się poprzez python3 main.py --tree AVL <<< "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 actions"
 elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
     # print(len(sys.argv))
-    x=input()
-    x= x.split()
-    for i in range (0, int(x.pop(0))):
-        tree_data.append(int(x.pop(0)))
-    z=trees.AVL(tree_data)
-    for i in x:
+    input_string=input()
+    input_string= input_string.split()
+    for i in range (0, int(input_string.pop(0))):
+        tree_data.append(int(input_string.pop(0)))
+    tree=trees.AVL(tree_data)
+    for i in input_string:
         action = i
         match action:
             case "help":
@@ -84,10 +84,10 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print_tree()
-                print("pre-order: ", tab[0])
-                print("In-order: ", tab[1])
-                print("post-order: ", tab[2])
+                tab = tree.print_tree()
+                print("pre-order: ", *tab[0])
+                print("In-order: ", *tab[1])
+                print("post-order: ", *tab[2])
 
             case "remove":
                 tab=[]
@@ -100,26 +100,26 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
                         tab.append(tmp)
                         tmp = ""
                 for i in tab:
-                    z.delete(int(i))
+                    tree.delete(int(i))
 
             case "delete":
-                z.del_all()
+                tree.del_all()
                 print("Tree has been deleted")
 
             case "export":
                 string="\documentclass{standalone}\n\\usepackage{tikz}\n\\usepackage{tikz-qtree}\n\\begin{document}\n"
                 f=open("avl_tree.tex", "w", encoding="utf-8")
                 f.write(string)
-                f.write(z.generate_tree_in_tikz())
+                f.write(tree.generate_tree_in_tikz())
                 f.write("\n\end{document}")
                 f.close()
                 pass
 
             case "rebalance":
-                z.balanceDSW()
+                tree.balanceDSW()
             case "findMinMax":
-                print("Min: ", z.find_min())
-                print("Max", z.find_max())
+                print("Min: ", tree.find_min())
+                print("Max", tree.find_max())
             case "exit":
                 pass
 
@@ -131,7 +131,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
         if a[i]==" ":
             continue
         tree_data.append(int(a[i]))
-    z=trees.BST(tree_data)
+    tree=trees.BST(tree_data)
     
     while(True):
         action = input("action> ")
@@ -147,10 +147,10 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print()
-                print("pre-order: ", tab[0])
-                print("In-order: ", tab[1])
-                print("post-order: ", tab[2])
+                tab = tree.print()
+                print("pre-order: ", *tab[0])
+                print("In-order: ", *tab[1])
+                print("post-order: ", *tab[2])
                 
 
             case "remove":
@@ -164,17 +164,17 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
                         tab.append(tmp)
                         tmp = ""
                 for i in tab:
-                    z.delete(int(i))
+                    tree.delete(int(i))
 
             case "delete":
-                z.del_all()
+                tree.del_all()
                 print("Tree has been deleted")
 
             case "export":
                 string="\documentclass{standalone}\n\\usepackage{tikz}\n\\usepackage{tikz-qtree}\n\\begin{document}\n"
                 f=open("bst_tree.tex", "w", encoding="utf-8")
                 f.write(string)
-                f.write(z.generate_tree_in_tikz())
+                f.write(tree.generate_tree_in_tikz())
                 f.write("\n\end{document}")
                 f.close()
                 
@@ -182,8 +182,8 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
             case "rebalance":
                 pass
             case "findMinMax":
-                print("Min: ", z.find_min())
-                print("Max", z.find_max())
+                print("Min: ", tree.find_min())
+                print("Max", tree.find_max())
             case "exit":
                 break
 
@@ -195,7 +195,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
         if a[i]==" ":
             continue
         tree_data.append(int(a[i]))
-    z=trees.AVL(tree_data)
+    tree=trees.AVL(tree_data)
     
     while(True):
         action = input("action> ")
@@ -211,10 +211,10 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print_tree()
-                print("pre-order: ", tab[0])
-                print("In-order: ", tab[1])
-                print("post-order: ", tab[2])
+                tab = tree.print_tree()
+                print("pre-order: ", *tab[0])
+                print("In-order: ", *tab[1])
+                print("post-order: ", *tab[2])
 
             case "remove":
                 tab=[]
@@ -227,25 +227,25 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
                         tab.append(tmp)
                         tmp = ""
                 for i in tab:
-                    z.delete(int(i))
+                    tree.delete(int(i))
 
             case "delete":
-                z.del_all()
+                tree.del_all()
                 print("Tree has been deleted")
 
             case "export":
                 string="\documentclass{standalone}\n\\usepackage{tikz}\n\\usepackage{tikz-qtree}\n\\begin{document}\n"
                 f=open("avl_tree.tex", "w", encoding="utf-8")
                 f.write(string)
-                f.write(z.generate_tree_in_tikz())
+                f.write(tree.generate_tree_in_tikz())
                 f.write("\n\end{document}")
                 f.close()
                 
             case "rebalance":
-                z.balanceDSW()
+                tree.balanceDSW()
             case "findMinMax":
-                print("Min: ", z.find_min())
-                print("Max", z.find_max())
+                print("Min: ", tree.find_min())
+                print("Max", tree.find_max())
             case "exit":
                 break
 
