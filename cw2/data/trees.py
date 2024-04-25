@@ -1,5 +1,5 @@
 import sys
-
+from math import log2
 class Node:
     def __init__(self,key):
         self.key = key 
@@ -35,6 +35,7 @@ class BST:
             
             else:   #w przypadku duplikatow nic nie robimy
                 return
+   
     def generate_tree_in_tikz(self):
         return "\\Tree " + self._generate_tikz(self.root)
 
@@ -48,7 +49,7 @@ class BST:
         else:
             return f"[.{node.key} ]"
         
-    def print(self):
+    def __str__(self):
         preorder = []
         inorder = []
         postorder = []
@@ -56,7 +57,7 @@ class BST:
         self.inorder_traversal(self.root, inorder)
         self.preorder_traversal(self.root,preorder)
         self.postorder_traversal(self.root,postorder)
-        return preorder,inorder,postorder
+        return str((preorder,inorder,postorder))
     
     def print_inorder(self):
         inorder=[]
@@ -184,22 +185,63 @@ class AVL(BST):
         self.updateHeight(pivot)
 
         return pivot
+    
+    def create_backbone(self, node):        #backbone to drzewo uposledzone (w tym przypadku prawe [right-skewed])
+        if node is None:
+            return node
+        
+        if node.left is not None:
+            node = self.rightRotate(node)
+            return self.create_backbone(node)
+        
+        node.right = self.create_backbone(node.right)
+        return node
 
+    def backbone_size(self):                            
+        n = 0
+        current = self.root
+        while current:
+            n += 1
+            current = current.right
+        return n
+
+    def balance_tree(self,m,node):                      #to jest w sumie for loop ale rekurencyjnie bo wtedy dziala :3
+        if m == 0:  
+            return node
+        node = self.leftRotate(node)
+        node.right = self.balance_tree(m-1,node.right)
+        return node
+
+    
+    def balanceDSW(self):                                  
+        self.root = self.create_backbone(self.root)
+        n = self.backbone_size()
+        m = 2 ** int(log2(n + 1)) - 1
+
+        self.root = self.balance_tree(n-m,self.root) 
+        
+        while m > 1:                                    
+            m = m//2
+            self.root = self.balance_tree(m,self.root)
+            self.updateHeight(self.root)
     
     
 def main():
     xd = BST([2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
     xx=BST([10,9,8,7,6,5,4,3,2,1])
     dx = BST([8,2,5,14,10,12,13,6,9,1,4])
-    f= open("bst_tikz.tex", "w")
-    f.write(dx.generate_tikz())
-    f.close()
+    #f= open("bst_tikz.tex", "w")
+    #f.write(dx.generate_tikz())
+    #f.close()
+    lol = AVL([1,2,3,4,5,6,7])
+    lol.root = lol.create_backbone(lol.root)
+    print(lol)
+    lol.balanceDSW()
+    print(lol)
     
-
-    print(xd.print())
     # print(dx.print())
     # print(xx.print())
-    print(xd.print_inorder())
+    
 
 if __name__ == '__main__':
     main()
