@@ -134,43 +134,12 @@ class BST:
             node.right = None
             node.key = None
 
-class AVLNode(Node):
-    def __init__(self,key):
-        super().__init__(key)
-        self.height = 1
-
-class AVL(BST):
-    def __init__(self, data):
-        super().__init__(data)
-        self.root = self.build_avl_tree(sorted(data))
-        
-    def build_avl_tree(self, data):
-            if not data:
-                return None
-            mid = len(data) // 2
-            root = AVLNode(data[mid])
-            root.left = self.build_avl_tree(data[:mid])
-            root.right = self.build_avl_tree(data[mid+1:])
-            self.updateHeight(root)
-            return root
-   
-    def getBalance(self, node):
-        if not node:
-            return 0
-        return node.left.height - node.right.height
-
-    def updateHeight(self, node):
-        node.height = 1 + max(node.left.height if node.left else 0, node.right.height if node.right else 0)
-
     def rightRotate(self, rotator):
         pivot = rotator.left
         temp = pivot.right
 
         pivot.right = rotator
         rotator.left = temp
-
-        self.updateHeight(rotator)
-        self.updateHeight(pivot)
 
         return pivot
 
@@ -179,10 +148,7 @@ class AVL(BST):
         temp = pivot.left
 
         pivot.left = rotator
-        rotator.right = temp
-
-        self.updateHeight(rotator)
-        self.updateHeight(pivot)
+        rotator.right = temp 
 
         return pivot
     
@@ -223,7 +189,39 @@ class AVL(BST):
         while m > 1:                                    
             m = m//2
             self.root = self.balance_tree(m,self.root)
-            self.updateHeight(self.root)
+           
+
+class AVLNode(Node):
+    def __init__(self,key):
+        super().__init__(key)
+        self.height = 1
+
+class AVL(BST):
+    def __init__(self, data):
+        super().__init__(data)
+        self.root = self.build_avl_tree(sorted(data))
+        
+    def build_avl_tree(self, data):
+            if not data:
+                return None
+            mid = len(data) // 2
+            root = AVLNode(data[mid])
+            root.left = self.build_avl_tree(data[:mid])
+            root.right = self.build_avl_tree(data[mid+1:])
+            self.updateHeight(root)
+            return root
+    
+    def updateHeight(self, node):
+        if node is None:
+            return 0
+        node.height = 1 + max(self.updateHeight(node.left), self.updateHeight(node.right))
+        return node.height
+
+    def balance_factor(self, node):
+        if node is None:
+            return 0
+        return self.height(node.left) - self.height(node.right)
+  
     
     
 def main():
@@ -231,14 +229,11 @@ def main():
     xx=BST([10,9,8,7,6,5,4,3,2,1])
     dx = BST([8,2,5,14,10,12,13,6,9,1,4])
     
-    lol = AVL([1,2,3,4,5,6,7])
-    lol.root = lol.create_backbone(lol.root)
-    print(lol)
-    lol.balanceDSW()
-    print(lol)
-    
-    # print(dx.print())
-    # print(xx.print())
+    print(xd.print_tree())
+    xd.balanceDSW()
+    print(xd.print_tree())
+
+
     
 
 if __name__ == '__main__':
