@@ -4,8 +4,9 @@ import sys
 tree_data=[]
 # program odpala się poprzez python3 main.py --tree BST <<< "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 actions"
 if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
-    print(len(sys.argv))
+    # print(len(sys.argv))
     x=input()
+    print(x)
     x= x.split()
     for i in range (0, int(x.pop(0))):
         tree_data.append(int(x.pop(0)))
@@ -24,10 +25,10 @@ if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print()
-                print("pre-order: ", tab[0])
-                print("In-order: ", tab[1])
-                print("post-order: ", tab[2])
+                tab = z.print_tree()
+                print("pre-order: ", *tab[0])
+                print("In-order: ", *tab[1])
+                print("post-order: ", *tab[2])
 
             case "remove":
                 tab=[]
@@ -53,7 +54,6 @@ if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
                 f.write(z.generate_tree_in_tikz())
                 f.write("\n\end{document}")
                 f.close()
-                pass
 
             case "rebalance":
                 pass
@@ -64,12 +64,12 @@ if sys.argv[1] =="--tree" and sys.argv[2] == "BST" and len(sys.argv)==3:
                 pass
 # program odpala się poprzez python3 main.py --tree AVL <<< "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 actions"
 elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
-    print(len(sys.argv))
+    # print(len(sys.argv))
     x=input()
     x= x.split()
     for i in range (0, int(x.pop(0))):
         tree_data.append(int(x.pop(0)))
-    z=trees.BST(tree_data)
+    z=trees.AVL(tree_data)
     for i in x:
         action = i
         match action:
@@ -84,7 +84,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print()
+                tab = z.print_tree()
                 print("pre-order: ", tab[0])
                 print("In-order: ", tab[1])
                 print("post-order: ", tab[2])
@@ -116,7 +116,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and len(sys.argv)==3:
                 pass
 
             case "rebalance":
-                pass
+                z.balanceDSW()
             case "findMinMax":
                 print("Min: ", z.find_min())
                 print("Max", z.find_max())
@@ -151,6 +151,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "BST" and sys.argv[3]=="hand":
                 print("pre-order: ", tab[0])
                 print("In-order: ", tab[1])
                 print("post-order: ", tab[2])
+                
 
             case "remove":
                 tab=[]
@@ -194,7 +195,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
         if a[i]==" ":
             continue
         tree_data.append(int(a[i]))
-    z=trees.BST(tree_data)
+    z=trees.AVL(tree_data)
     
     while(True):
         action = input("action> ")
@@ -210,7 +211,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
                 print("exit         Exits the program (the same as ctrl + D)")
 
             case  "print":
-                tab = z.print()
+                tab = z.print_tree()
                 print("pre-order: ", tab[0])
                 print("In-order: ", tab[1])
                 print("post-order: ", tab[2])
@@ -241,7 +242,7 @@ elif sys.argv[1] =="--tree" and sys.argv[2] == "AVL" and sys.argv[3]=="hand":
                 f.close()
                 
             case "rebalance":
-                pass
+                z.balanceDSW()
             case "findMinMax":
                 print("Min: ", z.find_min())
                 print("Max", z.find_max())
