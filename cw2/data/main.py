@@ -22,11 +22,12 @@ def menu(action):
             
             case "remove":
                 try:
-                    nodes_to_remove = int(input("remove> ")).split()
+                    nodes_to_remove = input("remove> ").split()
+                    nodes_to_remove = [int(i) for i in nodes_to_remove]
                     for node in nodes_to_remove:
                         if node < 0:
                             raise ValueError
-                        trees.tree.delete(node)
+                        tree.delete(node)
                 except:
                     print("Niewłaściwe dane")
                     sys.exit(1)
@@ -44,17 +45,19 @@ def menu(action):
                 f.close()
 
             case "rebalance":
-                trees.tree.balanceDSW()
+                tree.balanceDSW()
             case "findMinMax":
                 print("Min: ", tree.find_min())
                 print("Max", tree.find_max())
             case _:
                 print("Niewłaściwa komenda")
 
-tree_data=[]
-# program odpala się poprzez python3 main.py --tree BST <<< "[liczba node'ow] [node] [node].....[node] actions"
+tree_data = []
+# program odpala się poprzez python3 main.py --tree [AVL/BST] <<< "[liczba node'ow] [node] [node].....[node] actions"
 tree_type = sys.argv[2]
-if sys.argv[1] =="--tree" and tree_type == ("BST" or "AVL") and len(sys.argv)==3:
+
+if sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and len(sys.argv)==3:
+    
     # print(len(sys.argv))
     input_string=input()
     print(input_string)
@@ -79,15 +82,18 @@ if sys.argv[1] =="--tree" and tree_type == ("BST" or "AVL") and len(sys.argv)==3
         action = i
         menu(action)
         
-# program odpala się poprzez python3 main.py --tree BST hand, a następnie można w programie podać ilość nodów 
-elif sys.argv[1] =="--tree" and sys.argv[2] == ("BST" or "AVL")  and sys.argv[3]=="hand":
+# program odpala się poprzez python3 main.py --tree [AVL/BST] hand, a następnie można w programie podać ilość nodów 
+elif sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and sys.argv[3]=="hand":
     try:
         nodes=int(input("nodes > "))
         for _ in range(nodes):
             if nodes < 0:
                 raise ValueError
             tree_data.append(int(input("insert > ")))
-        tree=trees.BST(tree_data)
+        if tree_type == "BST":
+            tree=trees.BST(tree_data)
+        else:
+            tree =  trees.AVL(tree_data)
     except:
         print("Niewłaściwe dane")
         sys.exit(1)
