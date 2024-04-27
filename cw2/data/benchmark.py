@@ -110,7 +110,7 @@ def main():
         file=open("benchmark_results/results.txt", "x")
         file.write("Action\tname_of_file\tnumber_of_elements\ttime\n")
         file.close()
-    measure_time_of_creating_tree("AVL", "benchmark_data/random")
+    # measure_time_of_creating_tree("AVL", "benchmark_data/random")
     measure_time_of_creating_tree("BST", "benchmark_data/random")
     measure_time_of_finding_min_and_max_tree("BST", "benchmark_data/random")
     measure_time_of_finding_min_and_max_tree("AVL", "benchmark_data/random")
