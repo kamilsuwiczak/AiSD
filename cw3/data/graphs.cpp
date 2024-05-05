@@ -5,16 +5,19 @@ class Graph {
 private:
     int numVertices;
     vector<vector<int>> adjacencyMatrix;
+    vector<vector<int>> successorList;
 
 public:
     Graph(int vertices) {
         numVertices = vertices;
         adjacencyMatrix.resize(numVertices, vector<int>(numVertices, 0));
+        successorList.resize(numVertices);
     }
 
     void addEdge(int source, int destination) {
         if (source >= 1 && source < numVertices && destination >= 1 && destination < numVertices) {
             adjacencyMatrix[source-1][destination-1] = 1;
+            successorList[source-1].push_back(destination);
         }
     }
 
@@ -36,6 +39,15 @@ public:
             cout << endl;
         }
     }
+    void printSuccessorList() {
+        for (int i = 0; i < numVertices; i++) {
+            cout << i+1 << ": ";
+            for (int j = 0; j < successorList[i].size(); j++) {
+                cout << successorList[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
 };
 
 int main() {
@@ -48,6 +60,7 @@ int main() {
     graph.addEdge(4, 1);
 
     graph.printMatrix();
+    graph.printSuccessorList();
 
     return 0;
 }
