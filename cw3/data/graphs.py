@@ -49,19 +49,74 @@ class Graph:
                 else:
                     return False
     
+    def BFS(self, start,representation):
+        start = start - 1
+        visited = [False] * self.num_vertices
+        queue = []
+        queue.append(start)
+        visited[start] = True
+        while queue:
+            start = queue.pop(0)
+            print(start + 1, end=" ")
+            if representation == "matrix":
+                for i in range(self.num_vertices):
+                    if self.adjacency_matrix[start][i] == 1 and visited[i] == False:
+                        queue.append(i)
+                        visited[i] = True
+            elif representation == "list":
+                for i in self.successor_list[start]:
+                    if visited[i-1] == False:
+                        queue.append(i-1)
+                        visited[i-1] = True
+            elif representation == "table":
+                for i in self.edge_list:
+                    if i[0] == start+1 and visited[i[1]-1] == False:
+                        queue.append(i[1]-1)
+                        visited[i[1]-1] = True
             
-        
+
+
+    def DFS(self, start,represenation):
+        start = start - 1
+        visited = [False] * self.num_vertices
+        stack = []
+        stack.append(start)
+        visited[start] = True
+        while stack:
+            start = stack.pop()
+            print(start+1, end=" ")
+            if represenation == "matrix":
+                for i in range(self.num_vertices):
+                    if self.adjacency_matrix[start][i] == 1 and visited[i] == False:
+                        stack.append(i)
+                        visited[i] = True
+            elif represenation == "list":
+                for i in self.successor_list[start]:
+                    if visited[i-1] == False:
+                        stack.append(i-1)
+                        visited[i-1] = True 
+            elif represenation == "table":
+                for i in self.edge_list:
+                    if i[0] == start+1 and visited[i[1]-1] == False:
+                        stack.append(i[1]-1)
+                        visited[i[1]-1] = True 
+
+    
+
+    
 
 if __name__ == "__main__":
-    graph = Graph(5)
+    graph = Graph(7)
 
-    graph.add_edge(1, 1)
     graph.add_edge(1, 2)
-    graph.add_edge(2, 3)
-    graph.add_edge(3, 4)
-    graph.add_edge(4, 1)
-    graph.add_edge(4, 2)
+    graph.add_edge(1, 3)
+    graph.add_edge(2, 4)
+    graph.add_edge(2, 5)
+    graph.add_edge(3, 6)
+    graph.add_edge(3, 7)
+
 
     graph.print_matrix()
     graph.print_successor_list()
-    print(graph.find_edge(4,1, "list"))
+
+    graph.DFS(1,"table")
