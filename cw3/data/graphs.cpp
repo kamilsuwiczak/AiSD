@@ -6,18 +6,22 @@ private:
     int numVertices;
     vector<vector<int>> adjacencyMatrix;
     vector<vector<int>> successorList;
-
+    vector<pair<int, int>> edgeList;
 public:
     Graph(int vertices) {
         numVertices = vertices;
         adjacencyMatrix.resize(numVertices, vector<int>(numVertices, 0));
         successorList.resize(numVertices);
+       
     }
 
     void addEdge(int source, int destination) {
         if (source >= 1 && source < numVertices && destination >= 1 && destination < numVertices) {
+            
             adjacencyMatrix[source-1][destination-1] = 1;
+            
             successorList[source-1].push_back(destination);
+            edgeList.push_back(make_pair(source, destination));
         }
     }
 
@@ -48,7 +52,15 @@ public:
             cout << endl;
         }
     }
-};
+    void printEdgeList() {
+        for (int i = 0; i < edgeList.size(); i++) {
+            cout << edgeList[i].first << " -> " << edgeList[i].second << endl;
+        }
+    }   
+    
+    
+    
+};   
 
 int main() {
     Graph graph(5);
@@ -61,6 +73,8 @@ int main() {
 
     graph.printMatrix();
     graph.printSuccessorList();
+    graph.printEdgeList();
+
 
     return 0;
 }
