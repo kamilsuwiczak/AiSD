@@ -10,11 +10,11 @@ class Graph:
             self.successor_list[source - 1].append(destination)
 
     def print_matrix(self):
-        print(" | ", end="")
+        print("  | ", end="")
         for i in range(self.num_vertices):
             print(i + 1, end=" ")
         print()
-        print("==" * (self.num_vertices + 1))
+        print(' '+"==" * (self.num_vertices + 1))
         for i in range(self.num_vertices):
             print(i + 1, "| ", end="")
             for j in range(self.num_vertices):
@@ -30,7 +30,7 @@ class Graph:
 
 
 if __name__ == "__main__":
-    graph = Graph(5)
+    graph = Graph(9)
 
     graph.add_edge(1, 1)
     graph.add_edge(1, 2)
