@@ -23,7 +23,8 @@ def menu():
                     pass
 
         case "find_edge":
-            pass
+            from_vertex = int(input("from> "))
+            to_vertex = int(input("to> "))
 
         case "BFS":
             pass
@@ -34,15 +35,41 @@ def menu():
         case "exit":
             sys.exit(1)
 
-# jeszcze nie działa
+# działa i heredoc (python3 main.py --user-provided << EOF) też działa
 if sys.argv[1] == "--user-provided":
-    num_nodes = int(input("nodes> "))
+    try:
+        num_nodes = int(input("nodes> "))
+        if num_nodes <0:
+            raise ValueError
+    except:
+        print("Niewłaściwe dane")
+        sys.exit(1)
+
     graph = graphs.Graph(num_nodes)
     for i in range(1, num_nodes+1):
         vertices = input(f'{i}> ').split()
         for j in vertices:
+            try:
+                if int(j) <=0:
+                    raise ValueError
+            except:
+                print("Niewłaściwe dane")
+                sys.exit(1)
+
             graph.add_edge(i, int(j))
 
+#jeszcze nie działa
+if sys.argv[1] == "--generate":
+    try:
+        num_nodes = int(input("nodes> "))
+        if num_nodes <0:
+            raise ValueError
+        saturation = int(input("saturation> "))
+        if saturation <0:
+            raise ValueError
+    except:
+        print("Niewłaściwe dane")
+        sys.exit(1)
 
 
 while(True):
