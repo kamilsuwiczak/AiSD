@@ -23,8 +23,13 @@ def menu():
                     pass
 
         case "find_edge":
-            from_vertex = int(input("from> "))
-            to_vertex = int(input("to> "))
+            source = int(input("from> "))
+            destination = int(input("to> "))
+            if graph.find_edge(source, destination) == True:
+                print(f'edge ({source}, {destination}) exists')
+            else:
+                print(f'edge ({source}, {destination}) does not exist')
+
 
         case "BFS":
             pass
