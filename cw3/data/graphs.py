@@ -28,11 +28,21 @@ class Graph:
                 print(successor, end=" ")
             print()
 
-    def find_edge(self, source, destination):
-        if self.adjacency_matrix[source][destination] == 1:
-            return True
-        else:
-            return False
+    def find_edge(self, source, destination, representation):
+        if representation == "matrix":
+            if self.adjacency_matrix[source-1][destination-1] == 1:
+                return True
+            else:
+                return False
+        elif representation == "list":
+            if len(self.successor_list[source-1]) < destination:
+                return False
+            else:
+                if self.successor_list[source-1][destination-1] == destination:
+                    return True
+                else:
+                    return False
+            
         
 
 if __name__ == "__main__":
@@ -47,4 +57,5 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
-    graph.find_edge(1,4)
+    print()
+    print(graph.find_edge(1,3, "list"))
