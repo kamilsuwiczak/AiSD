@@ -10,7 +10,7 @@ class Graph:
             self.successor_list[source - 1].append(destination)
 
     def print_matrix(self):
-        print(" | ", end="")
+        print("  | ", end="")
         for i in range(self.num_vertices):
             print(i + 1, end=" ")
         print()
@@ -28,6 +28,12 @@ class Graph:
                 print(successor, end=" ")
             print()
 
+    def find_edge(self, source, destination):
+        if self.adjacency_matrix[source][destination] == 1:
+            return True
+        else:
+            return False
+        
 
 if __name__ == "__main__":
     graph = Graph(5)
@@ -37,6 +43,8 @@ if __name__ == "__main__":
     graph.add_edge(2, 3)
     graph.add_edge(3, 4)
     graph.add_edge(4, 1)
+    graph.add_edge(4, 2)
 
     graph.print_matrix()
     graph.print_successor_list()
+    graph.find_edge(1,4)
