@@ -47,7 +47,10 @@ class Graph:
                 else:
                     continue
         elif representation == "table":
-            pass
+            for edge in self.edge_list:
+                if edge[0] == source and edge[1]== destination:
+                    return True
+                
     
     def search(self, start, representation, method):
         start -= 1
@@ -126,7 +129,7 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
-    print(graph.find_edge(1,3, "list"))
+    graph.print_edge_list()
 
     # graph.search(1,"matrix","BFS")
-    # graph.topological_sort()
+    graph.topological_sort()
