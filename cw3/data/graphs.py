@@ -48,84 +48,84 @@ class Graph:
                     return True
                 else:
                     return False
-        elif representation == "table":
-            for edge in self.edge_list:
-                if edge[0] == source and edge[1]==destination: 
-                    return True
-                else: 
-                    continue
-            return False
     
-    def BFS(self, start,representation):
-        start = start - 1
+    def search(self, start, representation, method):
+        start -= 1
         visited = [False] * self.num_vertices
-        queue = []
-        queue.append(start)
+        array = []
+        array.append(start)
         visited[start] = True
-        while queue:
-            start = queue.pop(0)
+        if method == "BFS": #array -> queue
+            x = 0
+        elif method == "DFS": #array -> stack
+            x = -1      
+
+        while array:
+            start = array.pop(x)    
             print(start + 1, end=" ")
+
             if representation == "matrix":
                 for i in range(self.num_vertices):
                     if self.adjacency_matrix[start][i] == 1 and visited[i] == False:
-                        queue.append(i)
+                        array.append(i)
                         visited[i] = True
+
             elif representation == "list":
                 for i in self.successor_list[start]:
                     if visited[i-1] == False:
-                        queue.append(i-1)
+                        array.append(i-1)
                         visited[i-1] = True
+
             elif representation == "table":
                 for i in self.edge_list:
                     if i[0] == start+1 and visited[i[1]-1] == False:
-                        queue.append(i[1]-1)
+                        array.append(i[1]-1)
                         visited[i[1]-1] = True
+        print()
+        
+    def topological_sort(self):
+        # Step 1: Compute in-degrees of all vertices
+        in_degrees = [0] * self.num_vertices
+        for i in range(self.num_vertices):
+            for j in range(self.num_vertices):
+                if self.adjacency_matrix[i][j] == 1:
+                    in_degrees[j] += 1
+        
+        # Step 2: Initialize an empty queue and enqueue all vertices with in-degree 0
+        queue = []
+        for i in range(self.num_vertices):
+            if in_degrees[i] == 0:
+                queue.append(i)
+        
+        # Step 3: Process the queue until it becomes empty
+        while queue:
+            vertex = queue.pop(0)
+            print(vertex + 1, end=" ")
             
-
-
-    def DFS(self, start,represenation):
-        start = start - 1
-        visited = [False] * self.num_vertices
-        stack = []
-        stack.append(start)
-        visited[start] = True
-        while stack:
-            start = stack.pop()
-            print(start+1, end=" ")
-            if represenation == "matrix":
-                for i in range(self.num_vertices):
-                    if self.adjacency_matrix[start][i] == 1 and visited[i] == False:
-                        stack.append(i)
-                        visited[i] = True
-            elif represenation == "list":
-                for i in self.successor_list[start]:
-                    if visited[i-1] == False:
-                        stack.append(i-1)
-                        visited[i-1] = True 
-            elif represenation == "table":
-                for i in self.edge_list:
-                    if i[0] == start+1 and visited[i[1]-1] == False:
-                        stack.append(i[1]-1)
-                        visited[i[1]-1] = True 
-
+            # Decrease the in-degree of adjacent vertices and enqueue them if their in-degree becomes 0
+            for i in range(self.num_vertices):
+                if self.adjacency_matrix[vertex][i] == 1:
+                    in_degrees[i] -= 1
+                    if in_degrees[i] == 0:
+                        queue.append(i)
     
 
     
 
 if __name__ == "__main__":
     graph = Graph(7)
-
+    
+    graph.add_edge(3, 7)
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
     graph.add_edge(2, 4)
     graph.add_edge(2, 5)
     graph.add_edge(3, 6)
-    graph.add_edge(3, 7)
+    graph.add_edge(6, 7)
 
 
     graph.print_matrix()
     graph.print_successor_list()
-    print(graph.edge_list)
-    print(graph.find_edge(1,7,"table"))
 
-    graph.DFS(1,"table")
+    graph.search(1,"matrix","BFS")
+    graph.topological_sort()
