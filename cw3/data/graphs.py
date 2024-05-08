@@ -48,13 +48,6 @@ class Graph:
                     return True
                 else:
                     return False
-        elif representation == "table":
-            for edge in self.edge_list:
-                if edge[0] == source and edge[1]==destination: 
-                    return True
-                else: 
-                    continue
-            return False
     
     def search(self, start, representation, method):
         start -= 1
@@ -88,7 +81,33 @@ class Graph:
                     if i[0] == start+1 and visited[i[1]-1] == False:
                         array.append(i[1]-1)
                         visited[i[1]-1] = True
-
+        print()
+        
+    def topological_sort(self):
+        # Step 1: Compute in-degrees of all vertices
+        in_degrees = [0] * self.num_vertices
+        for i in range(self.num_vertices):
+            for j in range(self.num_vertices):
+                if self.adjacency_matrix[i][j] == 1:
+                    in_degrees[j] += 1
+        
+        # Step 2: Initialize an empty queue and enqueue all vertices with in-degree 0
+        queue = []
+        for i in range(self.num_vertices):
+            if in_degrees[i] == 0:
+                queue.append(i)
+        
+        # Step 3: Process the queue until it becomes empty
+        while queue:
+            vertex = queue.pop(0)
+            print(vertex + 1, end=" ")
+            
+            # Decrease the in-degree of adjacent vertices and enqueue them if their in-degree becomes 0
+            for i in range(self.num_vertices):
+                if self.adjacency_matrix[vertex][i] == 1:
+                    in_degrees[i] -= 1
+                    if in_degrees[i] == 0:
+                        queue.append(i)
     
 
     
@@ -107,7 +126,6 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
-    print(graph.edge_list)
-    print(graph.find_edge(1,7,"table"))
 
     graph.search(1,"matrix","BFS")
+    graph.topological_sort()
