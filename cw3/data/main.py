@@ -1,5 +1,6 @@
 import graphs
 import sys
+import math
 
 def printing_help():
     print("help\t\tshows this message")
@@ -34,7 +35,17 @@ def menu(representation):
 
 
         case "BFS":
-            graph.BFS()
+            num_incoming_edges=[]
+            for _ in range(0,num_nodes):
+                num_incoming_edges.append(0)
+            if representation == "matrix":
+                print(graph.adjacency_matrix)
+                for row in graph.adjacency_matrix:
+                    for col in range(0,len(row)):
+                        if row[col] == 1:
+                            num_incoming_edges[col] +=1
+            print(num_incoming_edges)
+            print(min(num_incoming_edges))
         
         case "DFS":
             pass
@@ -65,7 +76,7 @@ if sys.argv[1] == "--user-provided":
 
             graph.add_edge(i, int(j))
 
-#jeszcze nie działa
+#już działa
 if sys.argv[1] == "--generate":
     try:
         num_nodes = int(input("nodes> "))
@@ -77,6 +88,28 @@ if sys.argv[1] == "--generate":
     except:
         print("Niewłaściwe dane")
         sys.exit(1)
+    graph=graphs.Graph(num_nodes)
+    acyclic_graph=[[0] * num_nodes for _ in range(num_nodes)]
+    max_num_of_ones=0
+    list_of_ones=[]
+    for i in range(0,num_nodes):
+        max_num_of_ones+=i
+    for _ in range(0,math.floor(max_num_of_ones*saturation/100)):
+        list_of_ones.append(1)
+
+    for i in range(0, num_nodes):
+        for j in range(0,num_nodes):
+            if i>=j:
+                continue
+            else:
+                if len(list_of_ones) == 0:
+                    break
+                acyclic_graph[i][j]=list_of_ones.pop()
+                graph.add_edge(i+1,j+1)
+
+    
+    print(acyclic_graph)
+    print(max_num_of_ones)
 
 representation = input("representation_type> ")
 
