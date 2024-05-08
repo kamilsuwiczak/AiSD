@@ -8,10 +8,13 @@ def printing_help():
     print("find_edge\tfinds if edge between two vertices exits")
     print("BFS\t\tprints graph in breath-first-search way")
     print("DFS\t\tprints graph in depth-first-search way")
+    print("Khan\t\tprints graph in topological sort using Khan algorithm")
+    print("Tarjan\t\tprints graph in topological sort using Tarjan algorithm")
     print("exit\t\texits the program")
 
+
 def menu(representation):
-    action = input("action> ")
+    action = input("\naction> ")
     match action:
         case "help":
             printing_help()
@@ -26,8 +29,14 @@ def menu(representation):
                     graph.print_edge_list()
 
         case "find_edge":
-            source = int(input("from> "))
-            destination = int(input("to> "))
+            try:
+                source = int(input("from> "))
+                destination = int(input("to> "))
+                if (source or destination) <= 0:
+                    raise ValueError
+            except:
+                print("Niewłaściwe dane")
+                sys.exit(1)
             if graph.find_edge(source, destination, representation) == True:
                 print(f'edge ({source}, {destination}) exists')
             else:
@@ -35,6 +44,7 @@ def menu(representation):
 
 
         case "BFS":
+            #nie działa jeszcze trzeba dorobic znajdowanie wierzcholka z najmniejsza liczba wejsciowa
             num_incoming_edges=[]
             for _ in range(0,num_nodes):
                 num_incoming_edges.append(0)
@@ -48,6 +58,12 @@ def menu(representation):
             print(min(num_incoming_edges))
         
         case "DFS":
+            pass
+
+        case "Khan":
+            graph.topological_sort()
+
+        case "Tarjan":
             pass
 
         case "exit":
@@ -83,7 +99,7 @@ if sys.argv[1] == "--generate":
         if num_nodes <0:
             raise ValueError
         saturation = int(input("saturation> "))
-        if saturation <0:
+        if saturation <0 or saturation >100:
             raise ValueError
     except:
         print("Niewłaściwe dane")
@@ -107,11 +123,14 @@ if sys.argv[1] == "--generate":
                 acyclic_graph[i][j]=list_of_ones.pop()
                 graph.add_edge(i+1,j+1)
 
-    
-    print(acyclic_graph)
-    print(max_num_of_ones)
-
 representation = input("representation_type> ")
+# try:    
+#     representation = input("representation_type> ")
+#     if (representation != "matrix" or representation != "list" or representation!= "table"):
+#         raise ValueError
+# except:
+#     print("Niewłaściwe dane")
+#     sys.exit(1)
 
 while(True):
     # graph = graphs.Graph(5)
