@@ -1,2 +1,4 @@
-cw3/__pycache__/
-cw2/__pycache__/
+cw3/data/__pycache__/
+cw2/data/__pycache__/
+cw2/data/input.txt
+.vscode/
