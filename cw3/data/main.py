@@ -1,38 +1,40 @@
 import graphs
 import sys
 
-def menu():
+def printing_help():
+    print("help\t\tshows this message")
+    print("print\t\tasks user what graph representation should be printed and print it")
+    print("find_edge\tfinds if edge between two vertices exits")
+    print("BFS\t\tprints graph in breath-first-search way")
+    print("DFS\t\tprints graph in depth-first-search way")
+    print("exit\t\texits the program")
+
+def menu(representation):
     action = input("action> ")
     match action:
         case "help":
-            print("help\t\tshows this message")
-            print("print\t\tasks user what graph representation should be printed and print it")
-            print("find_edge\tfinds if edge between two vertices exits")
-            print("BFS\t\tprints graph in breath-first-search way")
-            print("DFS\t\tprints graph in depth-first-search way")
-            print("exit\t\texits the program")
+            printing_help()
         
         case "print":
-            type_of_representation=input("type> ")
-            match type_of_representation:
+            match representation:
                 case "matrix":
                     graph.print_matrix()
                 case "list":
                     graph.print_successor_list()
                 case "table":
-                    pass
+                    graph.print_edge_list()
 
         case "find_edge":
             source = int(input("from> "))
             destination = int(input("to> "))
-            if graph.find_edge(source, destination) == True:
+            if graph.find_edge(source, destination, representation) == True:
                 print(f'edge ({source}, {destination}) exists')
             else:
                 print(f'edge ({source}, {destination}) does not exist')
 
 
         case "BFS":
-            pass
+            graph.BFS()
         
         case "DFS":
             pass
@@ -76,6 +78,7 @@ if sys.argv[1] == "--generate":
         print("Niewłaściwe dane")
         sys.exit(1)
 
+representation = input("representation_type> ")
 
 while(True):
     # graph = graphs.Graph(5)
@@ -84,5 +87,5 @@ while(True):
     # graph.add_edge(2, 3)
     # graph.add_edge(3, 4)
     # graph.add_edge(4, 1)
-    menu()
+    menu(representation)
 

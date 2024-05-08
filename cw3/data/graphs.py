@@ -48,6 +48,13 @@ class Graph:
                     return True
                 else:
                     return False
+        elif representation == "table":
+            for edge in self.edge_list:
+                if edge[0] == source and edge[1]==destination: 
+                    return True
+                else: 
+                    continue
+            return False
     
     def search(self, start, representation, method):
         start -= 1
@@ -100,5 +107,7 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
+    print(graph.edge_list)
+    print(graph.find_edge(1,7,"table"))
 
     graph.search(1,"matrix","BFS")
