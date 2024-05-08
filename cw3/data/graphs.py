@@ -41,13 +41,13 @@ class Graph:
             else:
                 return False
         elif representation == "list":
-            if len(self.successor_list[source-1]) < destination:
-                return False
-            else:
-                if self.successor_list[source-1][destination-1] == destination:
+            for i in self.successor_list[source-1]:
+                if i == destination:
                     return True
                 else:
-                    return False
+                    continue
+        elif representation == "table":
+            pass
     
     def search(self, start, representation, method):
         start -= 1
@@ -126,6 +126,7 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
+    print(graph.find_edge(1,3, "list"))
 
-    graph.search(1,"matrix","BFS")
-    graph.topological_sort()
+    # graph.search(1,"matrix","BFS")
+    # graph.topological_sort()
