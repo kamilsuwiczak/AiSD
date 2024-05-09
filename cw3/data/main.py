@@ -10,6 +10,7 @@ def printing_help():
     print("DFS\t\tprints graph in depth-first-search way")
     print("Khan\t\tprints graph in topological sort using Khan algorithm")
     print("Tarjan\t\tprints graph in topological sort using Tarjan algorithm")
+    print("export\t\texports graph to tikzpicture")
     print("exit\t\texits the program")
 
 
@@ -65,6 +66,14 @@ def menu(representation):
 
         case "Tarjan":
             pass
+
+        case "export":
+            string="\documentclass{article}\n\\usepackage{tikz}\n\\\begin{document}\n"
+            f=open("graph.tex", "w", encoding="utf-8")
+            f.write(string)
+            f.write(graph.export_graph())
+            f.write("\n\end{document}")
+            f.close()
 
         case "exit":
             sys.exit(1)
