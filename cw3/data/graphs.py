@@ -66,7 +66,6 @@ class Graph:
         while array:
             start = array.pop(x)    
             print(start + 1, end=" ")
-            
 
             if representation == "matrix":
                 for i in range(self.num_vertices):
@@ -112,11 +111,32 @@ class Graph:
                     in_degrees[i] -= 1
                     if in_degrees[i] == 0:
                         queue.append(i)
+
+
+    def generate_acyclic_graph(self, saturation):
+        num_edges = int((saturation * self.num_vertices * (self.num_vertices - 1)) / 2)
+        edges = set()
+        
+        while len(edges) < num_edges:
+            source = random.randint(1, self.num_vertices)
+            destination = random.randint(1, self.num_vertices)
+            
+            if source != destination:
+                edges.add((source, destination))
+        
+        for edge in edges:
+            graph.add_edge(edge[0], edge[1])
     
+
+    
+
 if __name__ == "__main__":
     graph = Graph(5)
 
     graph.generate_acyclic_graph(0.5)
+    
+    
+
 
     graph.print_matrix()
     graph.print_successor_list()
