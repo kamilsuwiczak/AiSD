@@ -88,6 +88,7 @@ class Graph:
         
     def topological_sort(self):
         # Step 1: Compute in-degrees of all vertices
+        result = []
         in_degrees = [0] * self.num_vertices
         for i in range(self.num_vertices):
             for j in range(self.num_vertices):
@@ -103,7 +104,7 @@ class Graph:
         # Step 3: Process the queue until it becomes empty
         while queue:
             vertex = queue.pop(0)
-            print(vertex + 1, end=" ")
+            result.append(vertex+1)
             
             # Decrease the in-degree of adjacent vertices and enqueue them if their in-degree becomes 0
             for i in range(self.num_vertices):
@@ -111,6 +112,10 @@ class Graph:
                     in_degrees[i] -= 1
                     if in_degrees[i] == 0:
                         queue.append(i)
+        if len(result) == self.num_vertices:
+            print(*result)
+        else:
+            print("Graf zawiera cykl!")
 
 
     def generate_acyclic_graph(self, saturation):
