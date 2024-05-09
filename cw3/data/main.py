@@ -1,6 +1,5 @@
 import graphs
 import sys
-import math
 
 def printing_help():
     print("help\t\tshows this message")
@@ -124,7 +123,7 @@ if sys.argv[1] == "--generate":
     list_of_ones=[]
     for i in range(0,num_nodes):
         max_num_of_ones+=i
-    for _ in range(0,math.floor(max_num_of_ones*saturation/100)):
+    for _ in range(0,int(max_num_of_ones*saturation/100)):
         list_of_ones.append(1)
 
     for i in range(0, num_nodes):

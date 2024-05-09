@@ -138,7 +138,7 @@ class Graph:
             angle_step = 360 / self.num_vertices
             for i in range(1, self.num_vertices + 1):
                 angle = (i - 1) * angle_step
-                output += f"\\node (v{i}) at ({angle}:3cm) {{{i}}};\n"
+                output += f"\\node (v{i}) at ({angle}:6cm) {{{i}}};\n"
         elif layout == 'grid':
             rows = int(self.num_vertices ** 0.5) + 1
             for i in range(1, self.num_vertices + 1):
