@@ -50,7 +50,7 @@ def menu(representation):
             graph.search(find_min_incoming_edges(),representation, "DFS")
 
         case "Khan":
-            graph.khan_topological_sort()
+            graph.khan_sort(representation)
 
         case "Tarjan":
             pass
