@@ -1,3 +1,5 @@
+import random
+
 class Graph:
     def __init__(self, vertices):
         self.num_vertices = vertices
@@ -10,6 +12,7 @@ class Graph:
             self.adjacency_matrix[source - 1][destination - 1] = 1
             self.successor_list[source - 1].append(destination)
             self.edge_list.append((source, destination))
+    
 
     def print_matrix(self):
         print("  | ", end="")
@@ -109,23 +112,79 @@ class Graph:
                     if in_degrees[i] == 0:
                         queue.append(i)
     
+    def topological_sort_tarjan(self):
+        # Step 1: Initialize variables
+        stack = []
+        visited = [False] * self.num_vertices
+        low_link_values = [-1] * self.num_vertices
+        on_stack = [False] * self.num_vertices
+        index = 0
+        result = []
+
+        # Step 2: Define the Tarjan's algorithm recursive function
+        def tarjan_algorithm(vertex):
+            nonlocal index
+            visited[vertex] = True
+            low_link_values[vertex] = index
+            index += 1
+            stack.append(vertex)
+            on_stack[vertex] = True
+
+            # Check all neighbors of the current vertex
+            for neighbor in self.successor_list[vertex]:
+                if not visited[neighbor]:
+                    tarjan_algorithm(neighbor)
+                    low_link_values[vertex] = min(low_link_values[vertex], low_link_values[neighbor])
+                elif on_stack[neighbor]:
+                    low_link_values[vertex] = min(low_link_values[vertex], low_link_values[neighbor])
+
+            # If the current vertex is a root node, pop the strongly connected component from the stack
+            if low_link_values[vertex] == index - 1:
+                component = []
+                while True:
+                    node = stack.pop()
+                    on_stack[node] = False
+                    component.append(node)
+                    if node == vertex:
+                        break
+                result.append(component)
+
+        # Step 3: Call the Tarjan's algorithm for each unvisited vertex
+        for vertex in range(self.num_vertices):
+            if not visited[vertex]:
+                tarjan_algorithm(vertex)
+
+        # Step 4: Print the result
+        for component in result:
+            print(component)
+
+    def generate_acyclic_graph(self, saturation):
+        num_edges = int((saturation * self.num_vertices * (self.num_vertices - 1)) / 2)
+        edges = set()
+        
+        while len(edges) < num_edges:
+            source = random.randint(1, self.num_vertices)
+            destination = random.randint(1, self.num_vertices)
+            
+            if source != destination:
+                edges.add((source, destination))
+        
+        for edge in edges:
+            graph.add_edge(edge[0], edge[1])
+    
 
     
 
 if __name__ == "__main__":
-    graph = Graph(7)
+    graph = Graph(5)
+
+    graph.generate_acyclic_graph(0.5)
     
-    graph.add_edge(3, 7)
-    graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
-    graph.add_edge(2, 4)
-    graph.add_edge(2, 5)
-    graph.add_edge(3, 6)
-    graph.add_edge(6, 7)
+    
 
 
     graph.print_matrix()
     graph.print_successor_list()
 
     graph.search(1,"matrix","BFS")
-    graph.topological_sort()
+ 
