@@ -225,6 +225,6 @@ if __name__ == "__main__":
     graph.print_matrix()
     graph.print_successor_list()
 
-    graph.search(1,"matrix","BFS")
+    graph.khan_matrix()
    
  
