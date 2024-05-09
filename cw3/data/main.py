@@ -1,5 +1,6 @@
 import graphs
 import sys
+import math
 
 def printing_help():
     print("help\t\tshows this message")
@@ -7,10 +8,13 @@ def printing_help():
     print("find_edge\tfinds if edge between two vertices exits")
     print("BFS\t\tprints graph in breath-first-search way")
     print("DFS\t\tprints graph in depth-first-search way")
+    print("Khan\t\tprints graph in topological sort using Khan algorithm")
+    print("Tarjan\t\tprints graph in topological sort using Tarjan algorithm")
     print("exit\t\texits the program")
 
+
 def menu(representation):
-    action = input("action> ")
+    action = input("\naction> ")
     match action:
         case "help":
             printing_help()
@@ -25,8 +29,14 @@ def menu(representation):
                     graph.print_edge_list()
 
         case "find_edge":
-            source = int(input("from> "))
-            destination = int(input("to> "))
+            try:
+                source = int(input("from> "))
+                destination = int(input("to> "))
+                if (source or destination) <= 0:
+                    raise ValueError
+            except:
+                print("Niewłaściwe dane")
+                sys.exit(1)
             if graph.find_edge(source, destination, representation) == True:
                 print(f'edge ({source}, {destination}) exists')
             else:
@@ -34,9 +44,26 @@ def menu(representation):
 
 
         case "BFS":
-            graph.BFS()
+            #nie działa jeszcze trzeba dorobic znajdowanie wierzcholka z najmniejsza liczba wejsciowa
+            num_incoming_edges=[]
+            for _ in range(0,num_nodes):
+                num_incoming_edges.append(0)
+            if representation == "matrix":
+                print(graph.adjacency_matrix)
+                for row in graph.adjacency_matrix:
+                    for col in range(0,len(row)):
+                        if row[col] == 1:
+                            num_incoming_edges[col] +=1
+            print(num_incoming_edges)
+            print(min(num_incoming_edges))
         
         case "DFS":
+            pass
+
+        case "Khan":
+            graph.topological_sort()
+
+        case "Tarjan":
             pass
 
         case "exit":
@@ -65,20 +92,45 @@ if sys.argv[1] == "--user-provided":
 
             graph.add_edge(i, int(j))
 
-#jeszcze nie działa
+#już działa
 if sys.argv[1] == "--generate":
     try:
         num_nodes = int(input("nodes> "))
         if num_nodes <0:
             raise ValueError
         saturation = int(input("saturation> "))
-        if saturation <0:
+        if saturation <0 or saturation >100:
             raise ValueError
     except:
         print("Niewłaściwe dane")
         sys.exit(1)
+    graph=graphs.Graph(num_nodes)
+    acyclic_graph=[[0] * num_nodes for _ in range(num_nodes)]
+    max_num_of_ones=0
+    list_of_ones=[]
+    for i in range(0,num_nodes):
+        max_num_of_ones+=i
+    for _ in range(0,math.floor(max_num_of_ones*saturation/100)):
+        list_of_ones.append(1)
+
+    for i in range(0, num_nodes):
+        for j in range(0,num_nodes):
+            if i>=j:
+                continue
+            else:
+                if len(list_of_ones) == 0:
+                    break
+                acyclic_graph[i][j]=list_of_ones.pop()
+                graph.add_edge(i+1,j+1)
 
 representation = input("representation_type> ")
+# try:    
+#     representation = input("representation_type> ")
+#     if (representation != "matrix" or representation != "list" or representation!= "table"):
+#         raise ValueError
+# except:
+#     print("Niewłaściwe dane")
+#     sys.exit(1)
 
 while(True):
     # graph = graphs.Graph(5)
