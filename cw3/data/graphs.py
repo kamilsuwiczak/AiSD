@@ -98,7 +98,8 @@ class Graph:
                         visited[i[1]-1] = True
         print()
         
-    def topological_sort_matrix(self):
+    def khan_topological_sort(self):
+        # Step 1: Compute in-degrees of all vertices
         result = []
         in_degrees = [0] * self.num_vertices
         for i in range(self.num_vertices):
@@ -191,7 +192,7 @@ class Graph:
             angle_step = 360 / self.num_vertices
             for i in range(1, self.num_vertices + 1):
                 angle = (i - 1) * angle_step
-                output += f"\\node (v{i}) at ({angle}:3cm) {{{i}}};\n"
+                output += f"\\node (v{i}) at ({angle}:6cm) {{{i}}};\n"
         elif layout == 'grid':
             # Arrange nodes in a grid (2D coordinates)
             rows = int(self.num_vertices ** 0.5) + 1
