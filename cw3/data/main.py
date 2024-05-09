@@ -45,21 +45,10 @@ def menu(representation):
 
 
         case "BFS":
-            #nie działa jeszcze trzeba dorobic znajdowanie wierzcholka z najmniejsza liczba wejsciowa
-            num_incoming_edges=[]
-            for _ in range(0,num_nodes):
-                num_incoming_edges.append(0)
-            if representation == "matrix":
-                print(graph.adjacency_matrix)
-                for row in graph.adjacency_matrix:
-                    for col in range(0,len(row)):
-                        if row[col] == 1:
-                            num_incoming_edges[col] +=1
-            print(num_incoming_edges)
-            print(min(num_incoming_edges))
-        
+            graph.search(find_min_incoming_edges(),representation, "BFS")
+            
         case "DFS":
-            pass
+            graph.search(find_min_incoming_edges(),representation, "DFS")
 
         case "Khan":
             graph.topological_sort()
@@ -77,6 +66,22 @@ def menu(representation):
 
         case "exit":
             sys.exit(1)
+
+def find_min_incoming_edges():
+    minimum = num_nodes
+    num_incoming_edges=[]
+    for _ in range(0,num_nodes):
+        num_incoming_edges.append(0)
+    for i in graph.successor_list:
+        for x in i:
+            if x!=0:
+                num_incoming_edges[x-1] +=1
+    for i in range(0, len(num_incoming_edges)):
+        if num_incoming_edges[i] == 0 and graph.successor_list[i] == []:
+            continue
+        elif minimum>=num_incoming_edges[i]:
+            minimum = num_incoming_edges[i]
+    return num_incoming_edges.index(minimum) + 1
 
 # działa i heredoc (python3 main.py --user-provided << EOF) też działa
 if sys.argv[1] == "--user-provided":

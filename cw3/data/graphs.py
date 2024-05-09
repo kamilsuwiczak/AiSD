@@ -129,22 +129,18 @@ class Graph:
     
     def export_graph(self, layout='circle'):
         output = "\\begin{tikzpicture}[>=stealth, ->]\n"
-
-        # Define nodes based on the specified layout
         if layout == 'circle':
             angle_step = 360 / self.num_vertices
             for i in range(1, self.num_vertices + 1):
                 angle = (i - 1) * angle_step
                 output += f"\\node (v{i}) at ({angle}:3cm) {{{i}}};\n"
         elif layout == 'grid':
-            # Arrange nodes in a grid (2D coordinates)
             rows = int(self.num_vertices ** 0.5) + 1
             for i in range(1, self.num_vertices + 1):
                 x = (i - 1) % rows
                 y = (i - 1) // rows
                 output += f"\\node (v{i}) at ({x}, {y}) {{{i}}};\n"
 
-        # Define directed edges
         for edge in self.edge_list:
             source, destination = edge
             output += f"\\draw (v{source}) -> (v{destination});\n"
@@ -167,6 +163,7 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
+    print(graph.successor_list)
 
     graph.search(1,"matrix","BFS")
  
