@@ -86,7 +86,7 @@ class Graph:
                         visited[i[1]-1] = True
         print()
         
-    def topological_sort(self):
+    def khan_topological_sort(self):
         # Step 1: Compute in-degrees of all vertices
         result = []
         in_degrees = [0] * self.num_vertices
