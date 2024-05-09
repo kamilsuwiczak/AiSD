@@ -68,7 +68,7 @@ def menu(representation):
             pass
 
         case "export":
-            string="\documentclass{article}\n\\usepackage{tikz}\n\\\begin{document}\n"
+            string="\documentclass{article}\n\\usepackage{tikz}\n\\begin{document}\n"
             f=open("graph.tex", "w", encoding="utf-8")
             f.write(string)
             f.write(graph.export_graph())
@@ -132,21 +132,14 @@ if sys.argv[1] == "--generate":
                 acyclic_graph[i][j]=list_of_ones.pop()
                 graph.add_edge(i+1,j+1)
 
-representation = input("representation_type> ")
-# try:    
-#     representation = input("representation_type> ")
-#     if (representation != "matrix" or representation != "list" or representation!= "table"):
-#         raise ValueError
-# except:
-#     print("Niewłaściwe dane")
-#     sys.exit(1)
+try:    
+    representation = input("representation_type> ")
+    if representation not in ["matrix", "list", "table"]:
+        raise ValueError
+except:
+    print("Niewłaściwe dane")
+    sys.exit(1)
 
 while(True):
-    # graph = graphs.Graph(5)
-    # graph.add_edge(1, 1)
-    # graph.add_edge(1, 2)
-    # graph.add_edge(2, 3)
-    # graph.add_edge(3, 4)
-    # graph.add_edge(4, 1)
     menu(representation)
 
