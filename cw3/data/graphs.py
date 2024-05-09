@@ -51,6 +51,10 @@ class Graph:
                     return True
                 else:
                     return False
+        elif representation == "table":
+            for i in self.edge_list:
+                if i[0] == source and i[1]==destination:
+                    return True
     
     def least_in_degree(self):
         in_degrees = [0] * self.num_vertices
