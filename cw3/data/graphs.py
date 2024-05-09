@@ -52,6 +52,18 @@ class Graph:
                 else:
                     return False
     
+    def least_in_degree(self):
+        in_degrees = [0] * self.num_vertices
+        for i in range(self.num_vertices):
+            for j in range(self.num_vertices):
+                if self.adjacency_matrix[i][j] == 1:
+                    in_degrees[j] += 1
+        
+        min_in_degree = min(in_degrees)
+        vertices = [i+1 for i, degree in enumerate(in_degrees) if degree == min_in_degree]
+        
+        return vertices
+       
     def search(self, start, representation, method):
         start -= 1
         visited = [False] * self.num_vertices
@@ -86,27 +98,21 @@ class Graph:
                         visited[i[1]-1] = True
         print()
         
-    def topological_sort(self):
-        # Step 1: Compute in-degrees of all vertices
+    def topological_sort_matrix(self):
         result = []
         in_degrees = [0] * self.num_vertices
         for i in range(self.num_vertices):
             for j in range(self.num_vertices):
                 if self.adjacency_matrix[i][j] == 1:
                     in_degrees[j] += 1
-        
-        # Step 2: Initialize an empty queue and enqueue all vertices with in-degree 0
         queue = []
         for i in range(self.num_vertices):
             if in_degrees[i] == 0:
                 queue.append(i)
         
-        # Step 3: Process the queue until it becomes empty
         while queue:
             vertex = queue.pop(0)
             result.append(vertex+1)
-            
-            # Decrease the in-degree of adjacent vertices and enqueue them if their in-degree becomes 0
             for i in range(self.num_vertices):
                 if self.adjacency_matrix[vertex][i] == 1:
                     in_degrees[i] -= 1
@@ -116,7 +122,52 @@ class Graph:
             print(*result)
         else:
             print("Graf zawiera cykl!")
+    
+    def topological_sort_list(self):
+        result = []
+        in_degrees = [0] * self.num_vertices
+        for i in range(self.num_vertices):
+            for j in self.successor_list[i]:
+                in_degrees[j-1] += 1
+        queue = []
+        for i in range(self.num_vertices):
+            if in_degrees[i] == 0:
+                queue.append(i)
+        
+        while queue:
+            vertex = queue.pop(0)
+            result.append(vertex+1)
+            for i in self.successor_list[vertex]:
+                in_degrees[i-1] -= 1
+                if in_degrees[i-1] == 0:
+                    queue.append(i-1)
+        if len(result) == self.num_vertices:
+            print(*result)
+        else:
+            print("Graf zawiera cykl!")
 
+    def topological_sort_edge_list(self):
+        result = []
+        in_degrees = [0] * self.num_vertices
+        for i in self.edge_list:
+            in_degrees[i[1]-1] += 1
+        queue = []
+        for i in range(self.num_vertices):
+            if in_degrees[i] == 0:
+                queue.append(i)
+        
+        while queue:
+            vertex = queue.pop(0)
+            result.append(vertex+1)
+            for i in self.edge_list:
+                if i[0] == vertex+1:
+                    in_degrees[i[1]-1] -= 1
+                    if in_degrees[i[1]-1] == 0:
+                        queue.append(i[1]-1)
+        if len(result) == self.num_vertices:
+            print(*result)
+        else:
+            print("Graf zawiera cykl!")
 
     def generate_acyclic_graph(self, saturation):
         num_edges = int((saturation * self.num_vertices * (self.num_vertices - 1)) / 2)
@@ -134,18 +185,22 @@ class Graph:
     
     def export_graph(self, layout='circle'):
         output = "\\begin{tikzpicture}[>=stealth, ->]\n"
+
+        # Define nodes based on the specified layout
         if layout == 'circle':
             angle_step = 360 / self.num_vertices
             for i in range(1, self.num_vertices + 1):
                 angle = (i - 1) * angle_step
                 output += f"\\node (v{i}) at ({angle}:3cm) {{{i}}};\n"
         elif layout == 'grid':
+            # Arrange nodes in a grid (2D coordinates)
             rows = int(self.num_vertices ** 0.5) + 1
             for i in range(1, self.num_vertices + 1):
                 x = (i - 1) % rows
                 y = (i - 1) // rows
                 output += f"\\node (v{i}) at ({x}, {y}) {{{i}}};\n"
 
+        # Define directed edges
         for edge in self.edge_list:
             source, destination = edge
             output += f"\\draw (v{source}) -> (v{destination});\n"
@@ -168,7 +223,9 @@ if __name__ == "__main__":
 
     graph.print_matrix()
     graph.print_successor_list()
-    print(graph.successor_list)
 
     graph.search(1,"matrix","BFS")
+    graph.topological_sort_edge_list()
+    graph.topological_sort_list()
+    graph.topological_sort_matrix()
  
