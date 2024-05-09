@@ -127,6 +127,33 @@ class Graph:
         for edge in edges:
             graph.add_edge(edge[0], edge[1])
     
+    def to_tikz(self, layout='circle'):
+        tikz_output = "\\begin{tikzpicture}[>=stealth, ->]\n"
+
+        # Define nodes based on the specified layout
+        if layout == 'circle':
+            angle_step = 360 / self.num_vertices
+            for i in range(1, self.num_vertices + 1):
+                angle = (i - 1) * angle_step
+                tikz_output += f"\\node (v{i}) at ({angle}:3cm) {{{i}}};\n"
+        elif layout == 'grid':
+            # Arrange nodes in a grid (2D coordinates)
+            rows = int(self.num_vertices ** 0.5) + 1
+            for i in range(1, self.num_vertices + 1):
+                x = (i - 1) % rows
+                y = (i - 1) // rows
+                tikz_output += f"\\node (v{i}) at ({x}, {y}) {{{i}}};\n"
+
+        # Define directed edges
+        for edge in self.edge_list:
+            source, destination = edge
+            tikz_output += f"\\draw (v{source}) -> (v{destination});\n"
+
+        tikz_output += "\\end{tikzpicture}\n"
+        
+        return tikz_output
+
+    
 
     
 
