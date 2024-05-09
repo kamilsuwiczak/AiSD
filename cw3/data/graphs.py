@@ -102,77 +102,74 @@ class Graph:
                         visited[i[1]-1] = True
         print()
         
-    def khan_matrix(self):
+    def khan_sort(self, representation):
         # Step 1: Compute in-degrees of all vertices
         result = []
         in_degrees = [0] * self.num_vertices
-        for i in range(self.num_vertices):
-            for j in range(self.num_vertices):
-                if self.adjacency_matrix[i][j] == 1:
-                    in_degrees[j] += 1
-        queue = []
-        for i in range(self.num_vertices):
-            if in_degrees[i] == 0:
-                queue.append(i)
-        
-        while queue:
-            vertex = queue.pop(0)
-            result.append(vertex+1)
+        if representation == "matrix":
             for i in range(self.num_vertices):
-                if self.adjacency_matrix[vertex][i] == 1:
-                    in_degrees[i] -= 1
-                    if in_degrees[i] == 0:
-                        queue.append(i)
-        if len(result) == self.num_vertices:
-            print(*result)
-        else:
-            print("Graf zawiera cykl!")
+                for j in range(self.num_vertices):
+                    if self.adjacency_matrix[i][j] == 1:
+                        in_degrees[j] += 1
+            queue = []
+            for i in range(self.num_vertices):
+                if in_degrees[i] == 0:
+                    queue.append(i)
+            
+            while queue:
+                vertex = queue.pop(0)
+                result.append(vertex+1)
+                for i in range(self.num_vertices):
+                    if self.adjacency_matrix[vertex][i] == 1:
+                        in_degrees[i] -= 1
+                        if in_degrees[i] == 0:
+                            queue.append(i)
+            if len(result) == self.num_vertices:
+                print(*result)
+            else:
+                print("Graf zawiera cykl!")
     
-    def khan_list(self):
-        result = []
-        in_degrees = [0] * self.num_vertices
-        for i in range(self.num_vertices):
-            for j in self.successor_list[i]:
-                in_degrees[j-1] += 1
-        queue = []
-        for i in range(self.num_vertices):
-            if in_degrees[i] == 0:
-                queue.append(i)
-        
-        while queue:
-            vertex = queue.pop(0)
-            result.append(vertex+1)
-            for i in self.successor_list[vertex]:
-                in_degrees[i-1] -= 1
-                if in_degrees[i-1] == 0:
-                    queue.append(i-1)
-        if len(result) == self.num_vertices:
-            print(*result)
-        else:
-            print("Graf zawiera cykl!")
+        elif representation == "list":
+            for i in range(self.num_vertices):
+                for j in self.successor_list[i]:
+                    in_degrees[j-1] += 1
+            queue = []
+            for i in range(self.num_vertices):
+                if in_degrees[i] == 0:
+                    queue.append(i)
+            
+            while queue:
+                vertex = queue.pop(0)
+                result.append(vertex+1)
+                for i in self.successor_list[vertex]:
+                    in_degrees[i-1] -= 1
+                    if in_degrees[i-1] == 0:
+                        queue.append(i-1)
+            if len(result) == self.num_vertices:
+                print(*result)
+            else:
+                print("Graf zawiera cykl!")
 
-    def khan_table(self):
-        result = []
-        in_degrees = [0] * self.num_vertices
-        for i in self.edge_list:
-            in_degrees[i[1]-1] += 1
-        queue = []
-        for i in range(self.num_vertices):
-            if in_degrees[i] == 0:
-                queue.append(i)
-        
-        while queue:
-            vertex = queue.pop(0)
-            result.append(vertex+1)
+        elif representation == "table":
             for i in self.edge_list:
-                if i[0] == vertex+1:
-                    in_degrees[i[1]-1] -= 1
-                    if in_degrees[i[1]-1] == 0:
-                        queue.append(i[1]-1)
-        if len(result) == self.num_vertices:
-            print(*result)
-        else:
-            print("Graf zawiera cykl!")
+                in_degrees[i[1]-1] += 1
+            queue = []
+            for i in range(self.num_vertices):
+                if in_degrees[i] == 0:
+                    queue.append(i)
+            
+            while queue:
+                vertex = queue.pop(0)
+                result.append(vertex+1)
+                for i in self.edge_list:
+                    if i[0] == vertex+1:
+                        in_degrees[i[1]-1] -= 1
+                        if in_degrees[i[1]-1] == 0:
+                            queue.append(i[1]-1)
+            if len(result) == self.num_vertices:
+                print(*result)
+            else:
+                print("Graf zawiera cykl!")
 
     def generate_acyclic_graph(self, saturation):
         num_edges = int((saturation * self.num_vertices * (self.num_vertices - 1)) / 2)
