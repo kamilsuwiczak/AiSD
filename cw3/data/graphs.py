@@ -98,7 +98,7 @@ class Graph:
                         visited[i[1]-1] = True
         print()
         
-    def khan_topological_sort(self):
+    def khan_matrix(self):
         # Step 1: Compute in-degrees of all vertices
         result = []
         in_degrees = [0] * self.num_vertices
@@ -124,7 +124,7 @@ class Graph:
         else:
             print("Graf zawiera cykl!")
     
-    def topological_sort_list(self):
+    def khan_list(self):
         result = []
         in_degrees = [0] * self.num_vertices
         for i in range(self.num_vertices):
@@ -147,7 +147,7 @@ class Graph:
         else:
             print("Graf zawiera cykl!")
 
-    def topological_sort_edge_list(self):
+    def khan_table(self):
         result = []
         in_degrees = [0] * self.num_vertices
         for i in self.edge_list:
@@ -226,7 +226,5 @@ if __name__ == "__main__":
     graph.print_successor_list()
 
     graph.search(1,"matrix","BFS")
-    graph.topological_sort_edge_list()
-    graph.topological_sort_list()
-    graph.topological_sort_matrix()
+   
  
