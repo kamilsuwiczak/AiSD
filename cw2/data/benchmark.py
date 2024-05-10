@@ -136,6 +136,8 @@ def measuring_time_of_rebelancing_BST(data_path, results_path):
         tab.clear()
     f1.close()
 
+
+
 def main():
     tree_data_degenerated= "benchmark_data/degenerated_trees"
     tree_data_random = "benchmark_data/random"
@@ -161,6 +163,7 @@ def main():
     measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
     measure_time_of_finding_min_and_max_tree("AVL", tree_data_random, results_path)
     measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
+    
 
     
 
