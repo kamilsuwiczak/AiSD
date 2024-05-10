@@ -132,7 +132,7 @@ def measuring_time_of_rebelancing_BST(data_path, results_path):
             measured_time.append(finish_time)
         average_time = str(sum(measured_time)/len(measured_time)).replace(".", ",")
         measured_time.clear()
-        f1.write(f"printing degenerated BST in-order\t{i}\t{x}\t{average_time}\n")
+        f1.write(f"rebalancing BST\t{i}\t{x}\t{average_time}\n")
         tab.clear()
     f1.close()
 
@@ -155,15 +155,15 @@ def main():
         file.close()
     sys.setrecursionlimit(1000000)
     
-    measure_time_of_creating_tree("AVL", tree_data_degenerated, results_path)
-    measure_time_of_creating_tree("AVL", tree_data_random, results_path)
-    measure_time_of_creating_tree("BST", tree_data_degenerated, results_path)
-    measure_time_of_creating_tree("BST", tree_data_random, results_path)
-    measure_time_of_finding_min_and_max_tree("BST", tree_data_random, results_path)
-    measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
-    measure_time_of_finding_min_and_max_tree("AVL", tree_data_random, results_path)
-    measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
-    
+    # measure_time_of_creating_tree("AVL", tree_data_degenerated, results_path)
+    # measure_time_of_creating_tree("AVL", tree_data_random, results_path)
+    # measure_time_of_creating_tree("BST", tree_data_degenerated, results_path)
+    # measure_time_of_creating_tree("BST", tree_data_random, results_path)
+    # measure_time_of_finding_min_and_max_tree("BST", tree_data_random, results_path)
+    # measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
+    # measure_time_of_finding_min_and_max_tree("AVL", tree_data_random, results_path)
+    # measure_time_of_finding_min_and_max_tree("BST", tree_data_degenerated, results_path)
+    measuring_time_of_rebelancing_BST(tree_data_random, results_path)
 
     
 
