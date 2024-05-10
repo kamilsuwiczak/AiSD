@@ -53,7 +53,7 @@ def menu(representation):
             graph.khan_sort(representation)
 
         case "Tarjan":
-            pass
+            graph.tarjan_sort()
 
         case "export":
             string="\documentclass{article}\n\\usepackage{tikz}\n\\begin{document}\n"
