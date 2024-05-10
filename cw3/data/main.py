@@ -50,7 +50,7 @@ def menu(representation):
             graph.search(find_min_incoming_edges(),representation, "DFS")
 
         case "Khan":
-            graph.khan_topological_sort()
+            graph.khan_sort()
         
         case "Tarjan":
             graph.tarjan_sort()
@@ -62,6 +62,7 @@ def menu(representation):
             f.write(graph.export_graph())
             f.write("\n\end{document}")
             f.close()
+            print("Graph has been exported")
 
         case "exit":
             sys.exit(1)
