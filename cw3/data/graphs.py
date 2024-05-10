@@ -103,9 +103,9 @@ class Graph:
         print()
         
     def khan_sort(self, representation):
-        # Step 1: Compute in-degrees of all vertices
         result = []
         in_degrees = [0] * self.num_vertices
+        
         if representation == "matrix":
             for i in range(self.num_vertices):
                 for j in range(self.num_vertices):
@@ -170,20 +170,6 @@ class Graph:
                 print(*result)
             else:
                 print("Graf zawiera cykl!")
-
-    def generate_acyclic_graph(self, saturation):
-        num_edges = int((saturation * self.num_vertices * (self.num_vertices - 1)) / 2)
-        edges = set()
-        
-        while len(edges) < num_edges:
-            source = random.randint(1, self.num_vertices)
-            destination = random.randint(1, self.num_vertices)
-            
-            if source != destination:
-                edges.add((source, destination))
-        
-        for edge in edges:
-            graph.add_edge(edge[0], edge[1])
     
     def export_graph(self, layout='circle'):
         output = "\\begin{tikzpicture}[>=stealth, ->]\n"
@@ -211,21 +197,57 @@ class Graph:
         
         return output
 
-    
 
+    def tarjan_sort(self):
+        visited = [False] * self.num_vertices
+        stack = []
+        result = []
+
+        def dfs_list(vertex):
+            visited[vertex] = True
+            for neighbor in self.successor_list[vertex]:
+                if not visited[neighbor - 1]:
+                    dfs_list(neighbor - 1)
+            stack.append(vertex+1)
+        
+        def dfs_matrix(vertex):
+            visited[vertex] = True
+            for i in range(self.num_vertices):
+                if self.adjacency_matrix[vertex][i] == 1 and not visited[i]:
+                    dfs_matrix(i)
+            stack.append(vertex+1)
+        
+        def dfs_table(vertex):
+            visited[vertex] = True
+            for edge in self.edge_list:
+                if edge[0] == vertex+1 and not visited[edge[1]-1]:
+                    dfs_table(edge[1]-1)
+            stack.append(vertex+1)
+
+        for i in range(self.num_vertices):
+            if not visited[i]:
+                dfs_list(i)
     
+        while stack:
+            result.append(stack.pop())
+        
+        print(*result)
+       
+
+        
 
 if __name__ == "__main__":
-    graph = Graph(5)
+    graph = Graph(4)
 
-    graph.generate_acyclic_graph(0.5)
+    graph.add_edge(1, 2)
+    graph.add_edge(1, 3)
+    graph.add_edge(3, 4)
+    graph.add_edge(4,1)    
     
     
-
-
     graph.print_matrix()
     graph.print_successor_list()
 
-    graph.khan_matrix()
-   
+    graph.tarjan_sort()
+    graph.khan_sort("list")
  
