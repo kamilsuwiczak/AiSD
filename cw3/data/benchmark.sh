@@ -23,7 +23,7 @@ EOF
             tmpFile=$(mktemp) #saving to tmp file so it can be logged in follow up log
             run_project="python3 main.py --generate"
             #Please note that <(echo $instance_size) is unnecesarry for routines kahn_sort and tarjan_sort, but the program should ignore invalid `actions`.
-            result=$(/usr/bin/time -f "%S|%M" $run_project < <(cat $representation $benchmark $routine <(echo $instance_size) <(echo exit)) 2>&1 >$tmpFile)
+            result=$(/usr/bin/time -f "%S|%M" $run_project < <(cat $benchmark $representation $routine <(echo $instance_size) <(echo exit)) 2>&1 >$tmpFile)
             mem=${result##*|}
             time=${result%|*}
 
