@@ -85,6 +85,9 @@ def find_min_incoming_edges():
             minimum = num_incoming_edges[i]
     return num_incoming_edges.index(minimum) + 1
 
+
+
+
 # działa i heredoc (python3 main.py --user-provided << EOF) też działa
 if sys.argv[1] == "--user-provided":
     try:
@@ -122,7 +125,7 @@ if sys.argv[1] == "--generate":
         num_nodes = int(input("nodes> "))
         if num_nodes <0:
             raise ValueError
-        saturation = int(input("saturation> "))
+        saturation = 70
         if saturation <0 or saturation >100:
             raise ValueError
     except:
