@@ -1,0 +1,5 @@
+list
+2048
+70
+Khan
+exit

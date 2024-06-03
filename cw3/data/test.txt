@@ -1,0 +1,7 @@
+matrix
+10
+70
+find_edge
+1
+10
+exit

@@ -15,7 +15,7 @@ for representation in "representations/"*; do
 $normal============================[INSTANCE SIZE $instance_size]============================$green
 Running the $routine benchmark for $representation. 
 $normal============================[Input]============================$gray
-$(cat  $representation $benchmark $routine <(echo exit))
+$(cat  $representation $benchmark $routine <(echo $instance_size) <(echo exit))
 $normal============================[Program Output]===================$teal 
 
 EOF
@@ -23,10 +23,9 @@ EOF
             tmpFile=$(mktemp) #saving to tmp file so it can be logged in follow up log
             run_project="python3 main.py --generate"
             #Please note that <(echo $instance_size) is unnecesarry for routines kahn_sort and tarjan_sort, but the program should ignore invalid `actions`.
-            cat $representation $benchmark $routine  <(echo exit) > dane.txt
+            cat $representation $benchmark $routine <(echo exit) > dane.txt
             dos2unix dane.txt
             result=$(/usr/bin/time -f "%S|%M" $run_project < dane.txt)
-            echo $result
             mem=${result##*|}
             time=${result%|*}
 

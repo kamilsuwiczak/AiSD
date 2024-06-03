@@ -50,7 +50,7 @@ def menu(representation):
             graph.search(find_min_incoming_edges(),representation, "DFS")
 
         case "Khan":
-            graph.khan_sort()
+            graph.khan_sort(representation)
         
         case "Tarjan":
             graph.tarjan_sort()
@@ -65,6 +65,8 @@ def menu(representation):
             print("Graph has been exported")
 
         case "exit":
+            sys.exit(1)
+        case "":
             sys.exit(1)
 
 def find_min_incoming_edges():
@@ -108,6 +110,14 @@ if sys.argv[1] == "--user-provided":
 
 #już działa
 if sys.argv[1] == "--generate":
+    try:    
+        representation = input("representation_type> ").strip()
+        if representation not in ["matrix", "list", "table"]:
+            raise ValueError
+    except:
+        print("Niewłaściwe dane")
+        sys.exit(1)
+
     try:
         num_nodes = int(input("nodes> "))
         if num_nodes <0:
@@ -137,13 +147,8 @@ if sys.argv[1] == "--generate":
                 acyclic_graph[i][j]=list_of_ones.pop()
                 graph.add_edge(i+1,j+1)
 
-try:    
-    representation = input("representation_type> ")
-    if representation not in ["matrix", "list", "table"]:
-        raise ValueError
-except:
-    print("Niewłaściwe dane")
-    sys.exit(1)
+
+
 
 while(True):
     menu(representation)
