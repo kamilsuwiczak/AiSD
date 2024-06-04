@@ -4,7 +4,10 @@ import sys
 def printing_help():
     print("help\t\tshows this message")
     print("print\t\tprints the graph")
-    print("export\t\tdraws this graph in matplotlib")
+    print("draw\t\tdraws this graph in matplotlib")
+    print("find_Euler\t\tfinds Euler's cycle in graph")
+    print("find_Hamilton\t\tfinds Hamilton's cycle in graph")
+
     print("exit\t\texits the program")
 
 
@@ -17,8 +20,14 @@ def menu():
         case "print":
             graph.print_graph()
 
-        case "export":
+        case "draw":
             graph.draw_graph()
+
+        case "find_Euler":
+            pass
+
+        case "find_Hamilton":
+            pass
 
         case "exit":
             sys.exit(1)
@@ -40,7 +49,14 @@ if sys.argv[1] == "--hamilton":
     graph.generate_hamiltonian_graph(num_nodes, (saturation/100))
 
 if sys.argv[1] == "--non-hamilton":
-    pass
+    try:
+        num_nodes = int(input("nodes> "))
+        if num_nodes <0:
+            raise ValueError
+    except:
+        print("Niewłaściwe dane")
+        sys.exit(1)
+    graph=graphs.Graph()
 
 
 
