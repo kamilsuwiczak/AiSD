@@ -52,8 +52,8 @@ class Graph:
         graph.canvas.manager.set_window_title('Graph')
         plt.show()
 
-g = Graph()
+# g = Graph()
     
-g.generate_hamiltonian_graph(7, 0.5)
-g.draw_graph()
-g.print_graph()
+# g.generate_hamiltonian_graph(7, 0.5)
+# g.draw_graph()
+# g.print_graph()
