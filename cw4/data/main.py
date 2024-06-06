@@ -5,6 +5,7 @@ def printing_help():
     print("help\t\tshows this message")
     print("print\t\tprints the graph")
     print("draw\t\tdraws this graph in matplotlib")
+    print("export\t\texports graph to tickzpicture")
     print("find_Euler\t\tfinds Euler's cycle in graph")
     print("find_Hamilton\t\tfinds Hamilton's cycle in graph")
 
@@ -22,6 +23,9 @@ def menu():
 
         case "draw":
             graph.draw_graph()
+
+        case "export":
+            graph.export_graph()
 
         case "find_Euler":
             cykl = graph.find_eulerian_cycle()
@@ -61,9 +65,6 @@ if sys.argv[1] == "--non-hamilton":
         sys.exit(1)
     graph=graphs.Graph()
     graph.generate_non_hamiltonian_graph(num_nodes, 0.5)
-
-
-
 
 while(True):
     menu()
