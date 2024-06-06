@@ -15,6 +15,12 @@ class Graph:
 
         self.graph[u].append(v)
         self.graph[v].append(u)
+    
+    def remove_vertex(self, vertex):
+        if vertex in self.graph:
+            for x in self.graph[vertex]:
+                self.graph[x].remove(vertex)
+            del self.graph[vertex]
 
 
     def print_graph(self):
@@ -42,6 +48,19 @@ class Graph:
             if u != v and v not in self.graph[u]:
                 self.add_edge(u, v)
                 num_edges -= 1
+    
+    def generate_non_hamiltonian_graph(self, num_vertices, saturation):
+        self.generate_hamiltonian_graph(num_vertices, saturation)
+        # Randomly select a vertex to isolate
+        vertex_to_isolate = random.choice(list(self.graph.keys()))
+        self.remove_vertex(vertex_to_isolate)
+    
+    # def finding_Hamilton_cycle(self, start_vertex):
+    #     visited_vertices = []
+    #     for _ in range(0,len(self.graph)):
+    #         visited_vertices.append(False)
+        
+
     def draw_graph(self):
         G = nx.Graph()
         for vertex in self.graph:
@@ -52,8 +71,9 @@ class Graph:
         graph.canvas.manager.set_window_title('Graph')
         plt.show()
 
-# g = Graph()
+g = Graph()
     
-# g.generate_hamiltonian_graph(7, 0.5)
-# g.draw_graph()
-# g.print_graph()
+g.generate_non_hamiltonian_graph(7, 0.5)
+g.draw_graph()
+g.print_graph()
+# print(g.graph)
