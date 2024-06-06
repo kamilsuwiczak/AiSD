@@ -22,6 +22,11 @@ class Graph:
                 self.graph[x].remove(vertex)
             del self.graph[vertex]
 
+    def remove_edge(self, u, v):
+        if u in self.graph and v in self.graph[u]:
+            self.graph[u].remove(v)
+            self.graph[v].remove(u)
+
 
     def print_graph(self):
         for vertex in self.graph:
@@ -55,11 +60,29 @@ class Graph:
         vertex_to_isolate = random.choice(list(self.graph.keys()))
         self.remove_vertex(vertex_to_isolate)
     
-    # def finding_Hamilton_cycle(self, start_vertex):
-    #     visited_vertices = []
-    #     for _ in range(0,len(self.graph)):
-    #         visited_vertices.append(False)
-        
+    #chyba działa ale trzeba troche pozmieniać 
+    def find_eulerian_cycle(self):
+        # Ensure all vertices have even degree
+        for vertex in self.graph:
+            if len(self.graph[vertex]) % 2 != 0:
+                return None
+
+        # Hierholzer's algorithm to find Eulerian cycle
+        G = self.graph.copy()
+        start_vertex = next(iter(G))
+        stack = [start_vertex]
+        path = []
+
+        while stack:
+            u = stack[-1]
+            if G[u]:
+                v = G[u][0]
+                stack.append(v)
+                self.remove_edge(u, v)
+            else:
+                path.append(stack.pop())
+        return path
+
 
     def draw_graph(self):
         G = nx.Graph()
@@ -73,7 +96,8 @@ class Graph:
 
 g = Graph()
     
-g.generate_non_hamiltonian_graph(7, 0.5)
-g.draw_graph()
+# g.generate_non_hamiltonian_graph(7, 0.5)
+g.generate_hamiltonian_graph(7,0.5)
+# g.draw_graph()
 g.print_graph()
-# print(g.graph)
+print(g.graph[1])
