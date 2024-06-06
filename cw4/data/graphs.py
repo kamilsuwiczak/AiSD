@@ -1,6 +1,7 @@
 import random
 import networkx as nx
 import matplotlib.pyplot as plt
+import math
 
 class Graph:
     def __init__(self):
@@ -51,12 +52,10 @@ class Graph:
         self.graph[num_vertices] = []
     
     def find_eulerian_cycle(self):
-        # Ensure all vertices have even degree
         for vertex in self.graph:
             if len(self.graph[vertex]) % 2 != 0:
                 return None
 
-        # Hierholzer's algorithm to find Eulerian cycle
         G = self.graph.copy()
         start_vertex = next(iter(G))
         stack = [start_vertex]
@@ -83,14 +82,43 @@ class Graph:
         graph.canvas.manager.set_window_title('Graph')
         plt.show()
 
+    def export_graph(self, file_name='graph.tex'):
+        with open(file_name, 'w') as f:
+            f.write('\\documentclass{standalone}\n')
+            f.write('\\usepackage{tikz}\n')
+            f.write('\\begin{document}\n')
+            f.write('\\begin{tikzpicture}[scale=2]\n')
+            
+            vertices = list(self.graph.keys())
+            n = len(vertices)
+            positions = {}
+            radius = 3
+
+            for i, vertex in enumerate(vertices):
+                angle = 2 * math.pi * i / n
+                x = radius * math.cos(angle)
+                y = radius * math.sin(angle)
+                positions[vertex] = (x, y)
+                f.write(f'\\node[draw, circle] ({vertex}) at ({x:.2f}, {y:.2f}) {{{vertex}}};\n')
+            
+            for vertex in self.graph:
+                for neighbor in self.graph[vertex]:
+                    if vertex < neighbor:
+                        f.write(f'\\draw ({vertex}) -- ({neighbor});\n')
+            
+            f.write('\\end{tikzpicture}\n')
+            f.write('\\end{document}\n')
+
 def main():
-    g = Graph()
+    pass
+    # g = Graph()
         
-    g.generate_non_hamiltonian_graph(7)
-    # g.generate_hamiltonian_graph(7,0.5)
-    g.draw_graph()
-    g.print_graph()
-    print("cykl Eulera: ",g.find_eulerian_cycle())
+    # # g.generate_non_hamiltonian_graph(7)
+    # g.generate_hamiltonian_graph(9, 0.5)
+    # # g.draw_graph()
+    # g.print_graph()
+    
+    # print("cykl Eulera: ",g.find_eulerian_cycle())
 
 if __name__ == "__main__":
     main()
