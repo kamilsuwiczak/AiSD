@@ -47,9 +47,9 @@ class Graph:
                 self.add_edge(u, v)
                 num_edges -= 1
     
-    def generate_non_hamiltonian_graph(self, num_vertices, saturation):
-        self.generate_hamiltonian_graph(num_vertices-1, saturation)
-        self.graph[num_vertices] = []
+    def generate_non_hamiltonian_graph(self, num_vertices):
+        self.generate_hamiltonian_graph(num_vertices-1, 0.5)
+        self.graph[num_vertices] = self.graph[1]
     
     def find_eulerian_cycle(self):
         for vertex in self.graph:
@@ -71,6 +71,39 @@ class Graph:
                 path.append(stack.pop())
         return path
 
+    def find_hamiltonian_cycle(self):
+        visited = set()
+        path = []
+
+        def backtrack(vertex):
+            visited.add(vertex)
+            path.append(vertex)
+
+            if len(path) == len(self.graph):
+                if path[0] in self.graph[vertex]:
+                    return path
+                else:
+                    path.pop()
+                    visited.remove(vertex)
+                    return None
+
+            for neighbor in self.graph[vertex]:
+                if neighbor not in visited:
+                    cycle = backtrack(neighbor)
+                    if cycle:
+                        return cycle
+
+            path.pop()
+            visited.remove(vertex)
+            return None
+
+        for vertex in self.graph:
+            cycle = backtrack(vertex)
+            if cycle:
+                return cycle
+
+        return None
+        
 
     def draw_graph(self):
         G = nx.Graph()
@@ -111,14 +144,15 @@ class Graph:
 
 def main():
     pass
-    # g = Graph()
+    g = Graph()
         
-    # # g.generate_non_hamiltonian_graph(7)
-    # g.generate_hamiltonian_graph(9, 0.5)
-    # # g.draw_graph()
-    # g.print_graph()
+    g.generate_non_hamiltonian_graph(10)
+    # g.generate_hamiltonian_graph(2, 0.5)
     
-    # print("cykl Eulera: ",g.find_eulerian_cycle())
+    g.print_graph()
 
+    # print("cykl Eulera: ",g.find_eulerian_cycle())
+    print("cykl Hamiltona: ",g.find_hamiltonian_cycle())
+    g.draw_graph()
 if __name__ == "__main__":
     main()

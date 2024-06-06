@@ -64,7 +64,7 @@ if sys.argv[1] == "--non-hamilton":
         print("Niewłaściwe dane")
         sys.exit(1)
     graph=Graph()
-    graph.generate_non_hamiltonian_graph(num_nodes, 0.5)
+    graph.generate_non_hamiltonian_graph(num_nodes)
 
 while(True):
     menu()
