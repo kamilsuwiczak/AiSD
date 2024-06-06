@@ -16,22 +16,14 @@ class Graph:
         self.graph[u].append(v)
         self.graph[v].append(u)
     
-    def remove_vertex(self, vertex):
-        if vertex in self.graph:
-            for x in self.graph[vertex]:
-                self.graph[x].remove(vertex)
-            del self.graph[vertex]
-
-    def remove_edge(self, u, v):
-        if u in self.graph and v in self.graph[u]:
-            self.graph[u].remove(v)
-            self.graph[v].remove(u)
-
-
     def print_graph(self):
         for vertex in self.graph:
             print(vertex, "->", " -> ".join(str(x) for x in self.graph[vertex]))
- 
+    
+    def remove_edge(self, u, v):
+        self.graph[u].remove(v)
+        self.graph[v].remove(u)
+
     def generate_hamiltonian_graph(self, num_vertices, saturation):
         if num_vertices < 3:
             return
@@ -54,13 +46,10 @@ class Graph:
                 self.add_edge(u, v)
                 num_edges -= 1
     
-    def generate_non_hamiltonian_graph(self, num_vertices, saturation):
-        self.generate_hamiltonian_graph(num_vertices, saturation)
-        # Randomly select a vertex to isolate
-        vertex_to_isolate = random.choice(list(self.graph.keys()))
-        self.remove_vertex(vertex_to_isolate)
+    def generate_non_hamiltonian_graph(self, num_vertices):
+        self.generate_hamiltonian_graph(num_vertices-1, 0.5)
+        self.graph[num_vertices] = []
     
-    #chyba działa ale trzeba troche pozmieniać 
     def find_eulerian_cycle(self):
         # Ensure all vertices have even degree
         for vertex in self.graph:
@@ -94,11 +83,14 @@ class Graph:
         graph.canvas.manager.set_window_title('Graph')
         plt.show()
 
-g = Graph()
-    
-# g.generate_non_hamiltonian_graph(7, 0.5)
-# g.generate_hamiltonian_graph(7,1)
-# g.draw_graph()
-# g.print_graph()
-# print("cykl Eulera: ",g.find_eulerian_cycle())
-# print(g.graph[1])
+def main():
+    g = Graph()
+        
+    g.generate_non_hamiltonian_graph(7)
+    # g.generate_hamiltonian_graph(7,0.5)
+    g.draw_graph()
+    g.print_graph()
+    print("cykl Eulera: ",g.find_eulerian_cycle())
+
+if __name__ == "__main__":
+    main()
