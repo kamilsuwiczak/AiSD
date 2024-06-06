@@ -24,8 +24,11 @@ def menu():
             graph.draw_graph()
 
         case "find_Euler":
-            pass
-
+            cykl = graph.find_eulerian_cycle()
+            if cykl:
+                print("Cykl Eulera: ", " -> ".join(map(str, cykl)))
+            else:
+                print("Nie istnieje cykl Eulera")
         case "find_Hamilton":
             pass
 

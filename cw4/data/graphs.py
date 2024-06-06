@@ -97,7 +97,8 @@ class Graph:
 g = Graph()
     
 # g.generate_non_hamiltonian_graph(7, 0.5)
-g.generate_hamiltonian_graph(7,0.5)
+# g.generate_hamiltonian_graph(7,1)
 # g.draw_graph()
-g.print_graph()
-print(g.graph[1])
+# g.print_graph()
+# print("cykl Eulera: ",g.find_eulerian_cycle())
+# print(g.graph[1])
