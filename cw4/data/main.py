@@ -1,4 +1,4 @@
-import graphs
+from graphs import Graph
 import sys
 
 def printing_help():
@@ -52,7 +52,7 @@ if sys.argv[1] == "--hamilton":
     except:
         print("Niewłaściwe dane")
         sys.exit(1)
-    graph=graphs.Graph()
+    graph=Graph()
     graph.generate_hamiltonian_graph(num_nodes, (saturation/100))
 
 if sys.argv[1] == "--non-hamilton":
@@ -63,7 +63,7 @@ if sys.argv[1] == "--non-hamilton":
     except:
         print("Niewłaściwe dane")
         sys.exit(1)
-    graph=graphs.Graph()
+    graph=Graph()
     graph.generate_non_hamiltonian_graph(num_nodes, 0.5)
 
 while(True):

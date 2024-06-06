@@ -47,8 +47,8 @@ class Graph:
                 self.add_edge(u, v)
                 num_edges -= 1
     
-    def generate_non_hamiltonian_graph(self, num_vertices):
-        self.generate_hamiltonian_graph(num_vertices-1, 0.5)
+    def generate_non_hamiltonian_graph(self, num_vertices, saturation):
+        self.generate_hamiltonian_graph(num_vertices-1, saturation)
         self.graph[num_vertices] = []
     
     def find_eulerian_cycle(self):
@@ -99,7 +99,7 @@ class Graph:
                 x = radius * math.cos(angle)
                 y = radius * math.sin(angle)
                 positions[vertex] = (x, y)
-                f.write(f'\\node[draw, circle] ({vertex}) at ({x:.2f}, {y:.2f}) {{{vertex}}};\n')
+                f.write(f'\\node[draw, circle, fill=blue!50] ({vertex}) at ({x:.2f}, {y:.2f}) {{{vertex}}};\n')
             
             for vertex in self.graph:
                 for neighbor in self.graph[vertex]:
