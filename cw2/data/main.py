@@ -56,9 +56,8 @@ tree_data = []
 # program odpala się poprzez python3 main.py --tree [AVL/BST] <<< "[liczba node'ow] [node] [node].....[node] actions"
 tree_type = sys.argv[2]
 
-if sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and len(sys.argv)==3:
-    
-    # print(len(sys.argv))
+if sys.argv[1] == "--tree" and (tree_type == "AVL" or tree_type == "BST")  and len(sys.argv) == 3:
+
     input_string=input()
     print(input_string)
     input_string= input_string.split()
@@ -83,9 +82,11 @@ if sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and le
         menu(action)
         
 # program odpala się poprzez python3 main.py --tree [AVL/BST] hand, a następnie można w programie podać ilość nodów 
-elif sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and sys.argv[3]=="hand":
+elif sys.argv[1] =="--tree" and (tree_type == "AVL" or tree_type == "BST")  and sys.argv[3] == "hand":
     try:
         nodes=int(input("nodes > "))
+        if nodes < 0:
+            raise ValueError 
         for _ in range(nodes):
             if nodes < 0:
                 raise ValueError

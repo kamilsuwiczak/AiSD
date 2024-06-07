@@ -1,5 +1,6 @@
 import sys
 from math import log2
+
 class Node:
     def __init__(self,key):
         self.key = key 
