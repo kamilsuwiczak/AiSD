@@ -143,7 +143,7 @@ class Graph:
             f.write('\\end{document}\n')
 
 def main():
-    pass
+    
     g = Graph()
         
     g.generate_non_hamiltonian_graph(10)

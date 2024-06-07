@@ -8,7 +8,6 @@ def printing_help():
     print("export\t\texports graph to tickzpicture")
     print("find_Euler\t\tfinds Euler's cycle in graph")
     print("find_Hamilton\t\tfinds Hamilton's cycle in graph")
-
     print("exit\t\texits the program")
 
 
@@ -33,8 +32,13 @@ def menu():
                 print("Cykl Eulera: ", " -> ".join(map(str, cykl)))
             else:
                 print("Nie istnieje cykl Eulera")
+        
         case "find_Hamilton":
-            pass
+            cykl = graph.find_hamiltonian_cycle()
+            if cykl:
+                print("Cykl Hamiltona: ", " -> ".join(map(str, cykl)))
+            else:
+                print("Nie istnieje cykl Hamiltona")
 
         case "exit":
             sys.exit(1)
