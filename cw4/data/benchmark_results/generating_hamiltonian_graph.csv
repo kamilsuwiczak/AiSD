@@ -1,0 +1,13 @@
+type_of_action, instance_size, time
+generating_hamiltonian_graph, 4, 1.8358230590820312e-05
+generating_hamiltonian_graph, 8, 7.152557373046875e-06
+generating_hamiltonian_graph, 16, 2.956390380859375e-05
+generating_hamiltonian_graph, 32, 0.0001232624053955078
+generating_hamiltonian_graph, 64, 0.0005469322204589844
+generating_hamiltonian_graph, 128, 0.002374410629272461
+generating_hamiltonian_graph, 256, 0.010774374008178711
+generating_hamiltonian_graph, 512, 0.050849199295043945
+generating_hamiltonian_graph, 1024, 0.27960824966430664
+generating_hamiltonian_graph, 2048, 1.794983148574829
+generating_hamiltonian_graph, 4096, 13.004692077636719
+generating_hamiltonian_graph, 8192, 95.95698547363281

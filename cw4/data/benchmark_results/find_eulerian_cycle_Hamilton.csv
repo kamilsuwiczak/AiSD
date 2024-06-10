@@ -1,0 +1,13 @@
+type_of_action, instance_size, time
+finding_eulerian_cycle_in_hamiltonian_graph, 4, 6.4373016357421875e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 8, 4.76837158203125e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 16, 2.384185791015625e-07
+finding_eulerian_cycle_in_hamiltonian_graph, 32, 1.1920928955078125e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 64, 7.152557373046875e-07
+finding_eulerian_cycle_in_hamiltonian_graph, 128, 7.152557373046875e-07
+finding_eulerian_cycle_in_hamiltonian_graph, 256, 3.337860107421875e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 512, 2.384185791015625e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 1024, 2.1457672119140625e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 2048, 4.291534423828125e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 4096, 3.0994415283203125e-06
+finding_eulerian_cycle_in_hamiltonian_graph, 8192, 2.86102294921875e-06

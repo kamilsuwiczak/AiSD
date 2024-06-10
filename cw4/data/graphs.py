@@ -142,17 +142,17 @@ class Graph:
             f.write('\\end{tikzpicture}\n')
             f.write('\\end{document}\n')
 
-def main():
+# def main():
     
-    g = Graph()
+#     g = Graph()
         
-    g.generate_non_hamiltonian_graph(10)
-    # g.generate_hamiltonian_graph(2, 0.5)
+#     g.generate_non_hamiltonian_graph(10)
+#     # g.generate_hamiltonian_graph(2, 0.5)
     
-    g.print_graph()
+#     g.print_graph()
 
-    # print("cykl Eulera: ",g.find_eulerian_cycle())
-    print("cykl Hamiltona: ",g.find_hamiltonian_cycle())
-    g.draw_graph()
-if __name__ == "__main__":
-    main()
+#     # print("cykl Eulera: ",g.find_eulerian_cycle())
+#     print("cykl Hamiltona: ",g.find_hamiltonian_cycle())
+#     g.draw_graph()
+# if __name__ == "__main__":
+    # main()

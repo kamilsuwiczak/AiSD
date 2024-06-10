@@ -1,0 +1,14 @@
+type_of_action, instance_size, time
+generating_non_hamiltonian_graph, 4, 6.318092346191406e-05
+generating_non_hamiltonian_graph, 5, 1.621246337890625e-05
+generating_non_hamiltonian_graph, 6, 1.71661376953125e-05
+generating_non_hamiltonian_graph, 7, 2.0742416381835938e-05
+generating_non_hamiltonian_graph, 8, 2.1219253540039062e-05
+generating_non_hamiltonian_graph, 9, 2.6941299438476562e-05
+generating_non_hamiltonian_graph, 10, 4.839897155761719e-05
+generating_non_hamiltonian_graph, 11, 2.9802322387695312e-05
+generating_non_hamiltonian_graph, 12, 3.552436828613281e-05
+generating_non_hamiltonian_graph, 13, 4.3392181396484375e-05
+generating_non_hamiltonian_graph, 14, 4.8160552978515625e-05
+generating_non_hamiltonian_graph, 15, 9.012222290039062e-05
+generating_non_hamiltonian_graph, 16, 4.982948303222656e-05

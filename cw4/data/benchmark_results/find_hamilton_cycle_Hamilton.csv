@@ -1,0 +1,13 @@
+type_of_action, instance_size, time
+finding_hamiltonian_cycle_in_hamiltonian_graph, 4, 6.198883056640625e-06
+finding_hamiltonian_cycle_in_hamiltonian_graph, 8, 5.245208740234375e-06
+finding_hamiltonian_cycle_in_hamiltonian_graph, 16, 5.4836273193359375e-06
+finding_hamiltonian_cycle_in_hamiltonian_graph, 32, 0.0019714832305908203
+finding_hamiltonian_cycle_in_hamiltonian_graph, 64, 9.393692016601562e-05
+finding_hamiltonian_cycle_in_hamiltonian_graph, 128, 0.0003001689910888672
+finding_hamiltonian_cycle_in_hamiltonian_graph, 256, 5.942587375640869
+finding_hamiltonian_cycle_in_hamiltonian_graph, 512, 0.0006270408630371094
+finding_hamiltonian_cycle_in_hamiltonian_graph, 1024, 0.06891942024230957
+finding_hamiltonian_cycle_in_hamiltonian_graph, 2048, 55.51789832115173
+finding_hamiltonian_cycle_in_hamiltonian_graph, 4096, 0.012040138244628906
+finding_hamiltonian_cycle_in_hamiltonian_graph, 8192, 9.512584924697876

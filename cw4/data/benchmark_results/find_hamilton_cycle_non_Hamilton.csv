@@ -1,0 +1,14 @@
+type_of_action, instance_size, time
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 4, 0.10727858543395996
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 5, 2.09808349609375e-05
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 6, 2.9325485229492188e-05
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 7, 6.008148193359375e-05
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 8, 0.0001761913299560547
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 9, 0.0007226467132568359
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 10, 0.003762960433959961
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 11, 0.015215873718261719
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 12, 0.08165836334228516
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 13, 0.4499180316925049
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 14, 4.1194167137146
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 15, 23.54196000099182
+finding_hamiltonian_cycle_in_non_hamiltonian_graph, 16, 161.6393473148346
