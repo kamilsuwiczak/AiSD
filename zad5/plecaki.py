@@ -18,13 +18,18 @@ def backpack(volumes, values, capacity, n):
 
     return cost_matrix[n][capacity], selected_items[::-1]
 
-
-
-volumes = [2, 3, 4, 5]
-values = [3, 4, 5, 6]
-C = 5
-n = len(volumes)
+with open("data.txt") as f:
+    C = int(f.readline())
+    n = int(f.readline())
+    volumes = []
+    values = []
+    for line in f:
+        v, c = map(int, line.split())
+        volumes.append(v)
+        values.append(c)
 
 max_value, selected_items = backpack(volumes, values, C, n)
+print("Pojemność plecaka:", C)
+print("Liczba przedmiotów:", n)
 print("Maksymalna wartość:", max_value)
 print("Spakowane przedmioty:", selected_items)
