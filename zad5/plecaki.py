@@ -18,18 +18,41 @@ def backpack(volumes, values, capacity, n):
 
     return cost_matrix[n][capacity], selected_items[::-1]
 
-with open("data.txt") as f:
-    C = int(f.readline())
-    n = int(f.readline())
-    volumes = []
-    values = []
-    for line in f:
-        v, c = map(int, line.split())
-        volumes.append(v)
-        values.append(c)
+def backpack_bruteforce(volumes, values, capacity, n):
+    def bruteforce(i, c, selected_items):
+        if i == n:
+            return 0, selected_items
+        if volumes[i] > c:
+            return bruteforce(i + 1, c, selected_items)
+        else:
+            value1, selected_items1 = bruteforce(i + 1, c - volumes[i], selected_items + [i])
+            value1 += values[i]
+            value2, selected_items2 = bruteforce(i + 1, c, selected_items)
+            if value1 > value2:
+                return value1, selected_items1
+            else:
+                return value2, selected_items2
+    
+    return bruteforce(0, capacity, [])
 
-max_value, selected_items = backpack(volumes, values, C, n)
-print("Pojemność plecaka:", C)
-print("Liczba przedmiotów:", n)
-print("Maksymalna wartość:", max_value)
-print("Spakowane przedmioty:", selected_items)
+def main():
+    with open("data.txt") as f:
+        C = int(f.readline())
+        n = int(f.readline())
+        volumes = []
+        values = []
+        for line in f:
+            v, c = map(int, line.split())
+            volumes.append(v)
+            values.append(c)
+
+    max_value, selected_items = backpack(volumes, values, C, n)
+    print("Pojemność plecaka:", C)
+    print("Liczba przedmiotów:", n)
+    print("Maksymalna wartość:", max_value)
+    print("Spakowane przedmioty:", selected_items) #indexy przedmiotów (od 0)
+
+    print(backpack_bruteforce(volumes, values, C, n) == (max_value, selected_items)) #True :)
+
+if __name__ == "__main__":
+    main()
